@@ -1,5 +1,6 @@
 package fr.univlorraine.miage.revolutmiage.carte.dto;
 
+import fr.univlorraine.miage.revolutmiage.compte.dto.CompteDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,4 +19,5 @@ public class CarteDTO {
     private boolean plafond;
     private boolean sansContact;
     private boolean virtuelle;
+    private CompteDTO compte;
 }

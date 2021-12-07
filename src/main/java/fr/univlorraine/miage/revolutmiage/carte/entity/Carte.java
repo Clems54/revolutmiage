@@ -1,5 +1,6 @@
 package fr.univlorraine.miage.revolutmiage.carte.entity;
 
+import fr.univlorraine.miage.revolutmiage.compte.entity.Compte;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Getter
 @Setter
@@ -23,4 +25,6 @@ public class Carte {
     private boolean plafond;
     private boolean sansContact;
     private boolean virtuelle;
+    @ManyToOne
+    private Compte compte;
 }

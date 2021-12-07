@@ -1,5 +1,6 @@
 package fr.univlorraine.miage.revolutmiage.utilisateur.entity;
 
+import fr.univlorraine.miage.revolutmiage.compte.entity.Compte;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,7 +8,9 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,4 +26,6 @@ public class Utilisateur {
     private String pays;
     private String numeroTelephone;
     private String secret;
+    @OneToMany
+    private List<Compte> comptes;
 }

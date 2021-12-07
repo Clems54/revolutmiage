@@ -1,7 +1,9 @@
 package fr.univlorraine.miage.revolutmiage.operation.hibernate;
 
 import fr.univlorraine.miage.revolutmiage.operation.entity.Operation;
-import fr.univlorraine.miage.revolutmiage.utils.hibernate.DefautRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface OperationRepository extends DefautRepository<Operation> {
+import java.util.UUID;
+
+public interface OperationRepository extends CrudRepository<Operation, UUID> {
 }

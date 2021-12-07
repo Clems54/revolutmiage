@@ -11,8 +11,9 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class OperationDTO {
+    private String idOperation;
     private String dateOperation;
-    private String libellle;
+    private String libelle;
     private double montant;
     private double taux;
     private CompteDTO compteCrediteur;

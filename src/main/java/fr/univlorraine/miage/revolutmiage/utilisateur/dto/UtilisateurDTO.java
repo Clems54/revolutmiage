@@ -1,9 +1,12 @@
 package fr.univlorraine.miage.revolutmiage.utilisateur.dto;
 
+import fr.univlorraine.miage.revolutmiage.compte.dto.CompteDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,4 +20,5 @@ public class UtilisateurDTO {
     private String numeroPasseport;
     private String numeroTelephone;
     private String secret;
+    private List<CompteDTO> comptes;
 }
