@@ -1,7 +1,7 @@
 package fr.univlorraine.miage.revolutmiage.utilisateur.mapper;
 
-import fr.univlorraine.miage.revolutmiage.utilisateur.entity.Utilisateur;
 import fr.univlorraine.miage.revolutmiage.utilisateur.dto.UtilisateurDTO;
+import fr.univlorraine.miage.revolutmiage.utilisateur.entity.Utilisateur;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
