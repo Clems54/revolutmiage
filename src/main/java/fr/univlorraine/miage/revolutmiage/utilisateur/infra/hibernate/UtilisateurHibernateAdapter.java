@@ -28,4 +28,9 @@ public class UtilisateurHibernateAdapter implements UtilisateurCatalog {
     public Optional<Utilisateur> findByNumeroPasseport(final String numeroPasseport) {
         return repository.findByNumeroPasseport(numeroPasseport);
     }
+
+    @Override
+    public void delete(final String numeroPasseport) {
+        repository.deleteByNumeroPasseport(numeroPasseport);
+    }
 }

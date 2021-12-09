@@ -10,4 +10,6 @@ public interface UtilisateurCatalog {
     Utilisateur save(Utilisateur utilisateur);
 
     Optional<Utilisateur> findByNumeroPasseport(String numeroPasseport);
+
+    void delete(String numeroPasseport);
 }

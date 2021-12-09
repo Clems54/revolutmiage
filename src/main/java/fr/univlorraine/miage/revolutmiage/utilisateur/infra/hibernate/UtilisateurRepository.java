@@ -9,4 +9,6 @@ public interface UtilisateurRepository extends CrudRepository<Utilisateur, Strin
     Utilisateur getByNumeroPasseport(String numeroPassport);
 
     Optional<Utilisateur> findByNumeroPasseport(String numeroPasseport);
+
+    void deleteByNumeroPasseport(String numeroPasseport);
 }
