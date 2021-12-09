@@ -1,8 +1,8 @@
 package fr.univlorraine.miage.revolutmiage.operation.infra.mapper;
 
 import fr.univlorraine.miage.revolutmiage.compte.infra.mapper.CompteMapper;
-import fr.univlorraine.miage.revolutmiage.operation.infra.dto.OperationDTO;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
+import fr.univlorraine.miage.revolutmiage.operation.infra.dto.OperationDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
