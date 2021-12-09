@@ -16,7 +16,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @Transactional(readOnly = true)
-@RequestMapping("/api/utilisateurs")
+@RequestMapping("utilisateurs")
 @RequiredArgsConstructor
 public class UtilisateurResource extends DefaultResource {
     private final UpdateUtilisateur updateUtilisateur;
