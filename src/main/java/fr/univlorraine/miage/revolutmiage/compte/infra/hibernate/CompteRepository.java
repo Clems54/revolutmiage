@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface CompteRepository extends CrudRepository<Compte, String> {
     Optional<Compte> findByIban(String iban);
+
+    void deleteByIban(String iban);
 }

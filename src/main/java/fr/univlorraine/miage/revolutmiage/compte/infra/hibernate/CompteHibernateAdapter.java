@@ -23,4 +23,9 @@ public class CompteHibernateAdapter implements CompteCatalog {
     public Optional<Compte> findByIban(final String iban) {
         return repository.findByIban(iban);
     }
+
+    @Override
+    public void delete(final String iban) {
+        repository.deleteByIban(iban);
+    }
 }

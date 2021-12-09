@@ -8,4 +8,6 @@ public interface CompteCatalog {
     Compte save(Compte compte);
 
     Optional<Compte> findByIban(String iban);
+
+    void delete(String iban);
 }
