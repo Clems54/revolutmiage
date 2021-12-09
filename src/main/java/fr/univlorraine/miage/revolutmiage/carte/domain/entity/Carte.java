@@ -22,7 +22,7 @@ public class Carte {
     private String cryptogramme;
     private boolean bloquee;
     private boolean localisation;
-    private boolean plafond;
+    private int plafond;
     private boolean sansContact;
     private boolean virtuelle;
     @ManyToOne

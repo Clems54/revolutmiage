@@ -10,4 +10,6 @@ public interface CompteCatalog {
     Optional<Compte> findByIban(String iban);
 
     void delete(String iban);
+
+    Compte getByIban(String iban);
 }

@@ -13,11 +13,11 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class CompteInput {
-    @NotBlank()
+    @NotBlank
     @Pattern(regexp = "^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}$")
     private String iban;
 
-    @NotBlank()
+    @NotBlank
     @Pattern(regexp = "^[0-9]{2}[a-zA-Z]{2}[0-9]{5}$")
     private String numeroPasseport;
 }

@@ -9,4 +9,6 @@ public interface CompteRepository extends CrudRepository<Compte, String> {
     Optional<Compte> findByIban(String iban);
 
     void deleteByIban(String iban);
+
+    Compte getByIban(String iban);
 }

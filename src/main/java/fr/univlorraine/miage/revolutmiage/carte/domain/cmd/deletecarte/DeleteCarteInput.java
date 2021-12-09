@@ -1,4 +1,4 @@
-package fr.univlorraine.miage.revolutmiage.utilisateur.domain.cmd.deleteutilisateur;
+package fr.univlorraine.miage.revolutmiage.carte.domain.cmd.deletecarte;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +10,8 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class DeleteUtilisateurInput {
+public class DeleteCarteInput {
     @NotBlank
-    @Pattern(regexp = "^[0-9]{2}[a-zA-Z]{2}[0-9]{5}$")
-    private String numeroPasseport;
+    @Pattern(regexp = "^[0-9]{16}$")
+    private String numeroCarte;
 }

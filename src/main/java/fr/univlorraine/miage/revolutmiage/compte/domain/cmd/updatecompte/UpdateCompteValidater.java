@@ -31,7 +31,7 @@ public class UpdateCompteValidater extends DefaultValidater<UpdateCompteInput> {
 
         final Optional<Utilisateur> optionalUtilisateur = utilisateurCatalog.findByNumeroPasseport(input.getNumeroPasseport());
         if (optionalUtilisateur.isEmpty()) {
-            problems.put(key("numeropasseport", "notfound"), "L'utilisateur n'existe pas");
+            problems.put(key("utilisateur", "notfound"), "L'utilisateur n'existe pas");
         }
     }
 }

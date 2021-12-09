@@ -14,27 +14,27 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class UtilisateurInput {
-    @NotBlank()
+    @NotBlank
     @Length(min = 1, max = 20)
     private String nom;
 
-    @NotBlank()
+    @NotBlank
     @Length(min = 1, max = 20)
     private String prenom;
 
-    @NotBlank()
+    @NotBlank
     @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$")
     private String dateDeNaissance;
 
-    @NotBlank()
+    @NotBlank
     @Length(min = 1, max = 20)
     private String pays;
 
-    @NotBlank()
+    @NotBlank
     @Pattern(regexp = "^[0-9]{2}[a-zA-Z]{2}[0-9]{5}$")
     private String numeroPasseport;
 
-    @NotBlank()
+    @NotBlank
     @Pattern(regexp = "^\\+[1-9]{1}[0-9]{3,14}$")
     private String numeroTelephone;
 }
