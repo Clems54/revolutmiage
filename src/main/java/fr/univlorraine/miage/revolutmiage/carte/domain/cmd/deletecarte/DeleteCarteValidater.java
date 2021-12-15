@@ -1,7 +1,6 @@
 package fr.univlorraine.miage.revolutmiage.carte.domain.cmd.deletecarte;
 
 import fr.univlorraine.miage.revolutmiage.carte.domain.catalog.CarteCatalog;
-import fr.univlorraine.miage.revolutmiage.compte.domain.catalog.CompteCatalog;
 import fr.univlorraine.miage.revolutmiage.utils.domain.cmd.DefaultValidater;
 import org.springframework.stereotype.Service;
 

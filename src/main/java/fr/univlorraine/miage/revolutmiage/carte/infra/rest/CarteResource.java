@@ -12,12 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @Transactional(readOnly = true)
-@RequestMapping("cartes")
+@RequestMapping("api/cartes")
 @RequiredArgsConstructor
+@RolesAllowed("ROLE_USER")
 public class CarteResource extends DefaultResource {
     private final UpdateCarte updateCarte;
     private final DeleteCarte deleteCarte;

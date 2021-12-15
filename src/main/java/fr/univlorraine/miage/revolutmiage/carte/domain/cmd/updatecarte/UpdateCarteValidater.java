@@ -4,8 +4,6 @@ import fr.univlorraine.miage.revolutmiage.carte.domain.catalog.CarteCatalog;
 import fr.univlorraine.miage.revolutmiage.carte.domain.entity.Carte;
 import fr.univlorraine.miage.revolutmiage.compte.domain.catalog.CompteCatalog;
 import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
-import fr.univlorraine.miage.revolutmiage.utilisateur.domain.catalog.UtilisateurCatalog;
-import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
 import fr.univlorraine.miage.revolutmiage.utils.domain.cmd.DefaultValidater;
 import org.springframework.stereotype.Service;
 

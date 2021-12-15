@@ -12,12 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @Transactional(readOnly = true)
-@RequestMapping("utilisateurs")
+@RequestMapping("api/utilisateurs")
 @RequiredArgsConstructor
+@RolesAllowed("ROLE_USER")
 public class UtilisateurResource extends DefaultResource {
     private final UpdateUtilisateur updateUtilisateur;
     private final DeleteUtilisateur deleteUtilisateur;

@@ -12,11 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("comptes")
+@RequestMapping("api/comptes")
+@RolesAllowed("ROLE_USER")
 public class CompteResource extends DefaultResource {
     private final CompteCatalog catalog;
     private final UpdateCompte updateCompte;
