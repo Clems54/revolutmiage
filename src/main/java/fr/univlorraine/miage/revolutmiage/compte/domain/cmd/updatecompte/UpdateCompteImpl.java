@@ -19,7 +19,7 @@ public class UpdateCompteImpl implements UpdateCompte {
 
         final Compte toSave = new Compte()
                 .setIban(input.getIban())
-                .setUtilisateur(utilisateurCatalog.getByNumeroPasseport(input.getNumeroPasseport()));
+                .setUtilisateur(utilisateurCatalog.getByNumeroPasseport(input.getNumeroPasseportUtilisateur()));
 
         catalog.save(toSave);
     }

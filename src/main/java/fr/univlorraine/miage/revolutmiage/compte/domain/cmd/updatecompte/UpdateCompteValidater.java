@@ -27,9 +27,11 @@ public class UpdateCompteValidater extends DefaultValidater<UpdateCompteInput> {
         final Optional<Compte> optionalCompte = catalog.findByIban(input.getIban());
         if (optionalCompte.isPresent() && input.isCreation()) {
             problems.put(key("iban", "exist"), "Ce numéro d'IBAN est déjà enregistré");
+        } else if (!input.isCreation() && optionalCompte.isEmpty()) {
+            problems.put(key("iban", "notfound"), "Le compte n'existe pas");
         }
 
-        final Optional<Utilisateur> optionalUtilisateur = utilisateurCatalog.findByNumeroPasseport(input.getNumeroPasseport());
+        final Optional<Utilisateur> optionalUtilisateur = utilisateurCatalog.findByNumeroPasseport(input.getNumeroPasseportUtilisateur());
         if (optionalUtilisateur.isEmpty()) {
             problems.put(key("utilisateur", "notfound"), "L'utilisateur n'existe pas");
         }

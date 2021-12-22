@@ -30,7 +30,7 @@ public class CompteResource extends DefaultResource {
     public ResponseEntity<?> creerCompte(@RequestBody final UpdateCompteInput input) {
         updateCompte.accept(input.setCreation(true));
         return ResponseEntity.created(
-                linkTo(Utilisateur.class).slash(input.getNumeroPasseport()).toUri()
+                linkTo(Utilisateur.class).slash(input.getNumeroPasseportUtilisateur()).toUri()
         ).build();
     }
 

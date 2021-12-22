@@ -23,6 +23,8 @@ public class UpdateUtilisateurValidater extends DefaultValidater<UpdateUtilisate
         final Optional<Utilisateur> optionalUtilisateur = catalog.findByNumeroPasseport(input.getNumeroPasseport());
         if (optionalUtilisateur.isPresent() && input.isCreation()) {
             problems.put(key("numeropasseport", "exist"), "Ce numéro de passeport est déjà enregistré");
+        } else if (!input.isCreation() && optionalUtilisateur.isEmpty()) {
+            problems.put(key("numeropasseport", "notfound"), "L'utilisateur n'existe pas");
         }
     }
 }

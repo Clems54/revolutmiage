@@ -1,8 +1,8 @@
 package fr.univlorraine.miage.revolutmiage.jwt.infra.rest;
 
+import fr.univlorraine.miage.revolutmiage.jwt.domain.cmd.JwtAuthenticationInput;
 import fr.univlorraine.miage.revolutmiage.jwt.infra.config.JwtTokenUtil;
 import fr.univlorraine.miage.revolutmiage.jwt.infra.config.JwtUserDetailsService;
-import fr.univlorraine.miage.revolutmiage.jwt.domain.cmd.JwtAuthenticationInput;
 import fr.univlorraine.miage.revolutmiage.jwt.infra.dto.JwtAuthenticationDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

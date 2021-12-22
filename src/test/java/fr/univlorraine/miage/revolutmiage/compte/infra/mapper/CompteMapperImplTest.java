@@ -1,9 +1,9 @@
 package fr.univlorraine.miage.revolutmiage.compte.infra.mapper;
 
-import fr.univlorraine.miage.revolutmiage.compte.infra.dto.CompteDTO;
 import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
-import fr.univlorraine.miage.revolutmiage.utilisateur.infra.dto.UtilisateurDTO;
+import fr.univlorraine.miage.revolutmiage.compte.infra.dto.CompteDTO;
 import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
+import fr.univlorraine.miage.revolutmiage.utilisateur.infra.dto.UtilisateurDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
