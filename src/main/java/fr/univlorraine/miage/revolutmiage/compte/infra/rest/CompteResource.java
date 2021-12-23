@@ -1,10 +1,12 @@
 package fr.univlorraine.miage.revolutmiage.compte.infra.rest;
 
+import fr.univlorraine.miage.revolutmiage.carte.infra.mapper.CarteMapper;
 import fr.univlorraine.miage.revolutmiage.compte.domain.catalog.CompteCatalog;
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.deletecompte.DeleteCompte;
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.deletecompte.DeleteCompteInput;
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.updatecompte.UpdateCompte;
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.updatecompte.UpdateCompteInput;
+import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.compte.infra.mapper.CompteMapper;
 import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
 import fr.univlorraine.miage.revolutmiage.utils.infra.rest.DefaultResource;
@@ -27,6 +29,7 @@ public class CompteResource extends DefaultResource {
     private final UpdateCompte updateCompte;
     private final DeleteCompte deleteCompte;
     private final CompteMapper compteMapper;
+    private final CarteMapper carteMapper;
 
     @GetMapping("{iban}")
     public ResponseEntity<?> getCompteById(@PathVariable final String iban) {
@@ -40,7 +43,14 @@ public class CompteResource extends DefaultResource {
 
     @GetMapping("{iban}/cartes")
     public ResponseEntity<?> getCompteCartes(@PathVariable final String iban) {
-        return ResponseEntity.of(catalog.findByIban(iban).map(compte -> SimpleResponse.sendObjectList("cartes", compte.getCartes())));
+        return ResponseEntity.of(catalog.findByIban(iban).map(Compte::getCartes).map(carteMapper::toDtos));
+    }
+
+    @GetMapping("{iban}/cartes/{numeroCarte}")
+    public ResponseEntity<?> getCompteCarte(@PathVariable final String iban, @PathVariable final String numeroCarte) {
+        return ResponseEntity.of(catalog.findByIban(iban)
+                .map(Compte::getCartes).get().stream()
+                .filter(carte -> numeroCarte.equals(carte.getNumeroCarte())).findFirst().map(carteMapper::toDto));
     }
 
     @PostMapping
