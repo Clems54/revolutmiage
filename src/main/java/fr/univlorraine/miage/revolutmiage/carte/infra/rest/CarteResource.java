@@ -5,6 +5,7 @@ import fr.univlorraine.miage.revolutmiage.carte.domain.cmd.deletecarte.DeleteCar
 import fr.univlorraine.miage.revolutmiage.carte.domain.cmd.deletecarte.DeleteCarteInput;
 import fr.univlorraine.miage.revolutmiage.carte.domain.cmd.updatecarte.UpdateCarte;
 import fr.univlorraine.miage.revolutmiage.carte.domain.cmd.updatecarte.UpdateCarteInput;
+import fr.univlorraine.miage.revolutmiage.carte.infra.mapper.CarteMapper;
 import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
 import fr.univlorraine.miage.revolutmiage.utils.infra.rest.DefaultResource;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,12 @@ public class CarteResource extends DefaultResource {
     private final UpdateCarte updateCarte;
     private final DeleteCarte deleteCarte;
     private final CarteCatalog catalog;
+    private final CarteMapper carteMapper;
+
+    @GetMapping("{numeroCarte}")
+    public ResponseEntity<?> getCarte(@PathVariable final String numeroCarte) {
+        return ResponseEntity.of(catalog.findByNumeroCarte(numeroCarte).map(carteMapper::toDto));
+    }
 
     @PostMapping
     @Transactional(readOnly = false)
