@@ -1,6 +1,8 @@
 package fr.univlorraine.miage.revolutmiage.compte.infra.rest;
 
+import fr.univlorraine.miage.revolutmiage.carte.domain.cmd.updatecarte.UpdateCarteInput;
 import fr.univlorraine.miage.revolutmiage.carte.infra.mapper.CarteMapper;
+import fr.univlorraine.miage.revolutmiage.carte.infra.rest.CarteResource;
 import fr.univlorraine.miage.revolutmiage.compte.domain.catalog.CompteCatalog;
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.deletecompte.DeleteCompte;
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.deletecompte.DeleteCompteInput;
@@ -30,6 +32,7 @@ public class CompteResource extends DefaultResource {
     private final DeleteCompte deleteCompte;
     private final CompteMapper compteMapper;
     private final CarteMapper carteMapper;
+    private final CarteResource carteResource;
 
     @GetMapping("{iban}")
     public ResponseEntity<?> getCompteById(@PathVariable final String iban) {
@@ -60,6 +63,12 @@ public class CompteResource extends DefaultResource {
         return ResponseEntity.created(
                 linkTo(Utilisateur.class).slash(input.getNumeroPasseportUtilisateur()).toUri()
         ).build();
+    }
+
+    @PostMapping("{iban}/cartes")
+    public ResponseEntity<?> creerCompteCarte(@PathVariable final String iban, @RequestBody final UpdateCarteInput input) {
+        input.setCompteIban(iban);
+        return carteResource.creerCarte(input);
     }
 
     @DeleteMapping("{iban}")
