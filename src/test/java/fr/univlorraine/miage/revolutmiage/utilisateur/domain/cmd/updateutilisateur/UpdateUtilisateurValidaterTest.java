@@ -33,6 +33,8 @@ class UpdateUtilisateurValidaterTest {
     private static final String INVALID_PAYS = "";
     private static final String INVALID_DATE_DE_NAISSANCE = "12-25-1990";
     private static final String INVALID_NUMERO_TELEPHONE = "+3360609789798789888998760606";
+    public static final String INVALID_PASSWORD = "pas";
+    public static final String VALID_PASSWORD = "password";
 
     @Autowired
     private Validator validator;
@@ -50,8 +52,8 @@ class UpdateUtilisateurValidaterTest {
     void testAllOk() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(false)
+        validUtilisateur.setCreation(false);
+        validUtilisateur.setPassword(VALID_PASSWORD)
                 .setNumeroPasseport(VALID_PASSEPORT)
                 .setNom(VALID_NOM)
                 .setPrenom(VALID_PRENOM)
@@ -65,11 +67,28 @@ class UpdateUtilisateurValidaterTest {
     }
 
     @Test
+    void testMauvaisPassword() {
+        // GIVEN
+        final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
+        validUtilisateur.setCreation(false);
+        validUtilisateur.setPassword(INVALID_PASSWORD)
+                .setNumeroPasseport(VALID_PASSEPORT)
+                .setNom(VALID_NOM)
+                .setPrenom(VALID_PRENOM)
+                .setDateDeNaissance(VALID_DATE_DE_NAISSANCE)
+                .setPays(VALID_PAYS)
+                .setNumeroTelephone(VALID_NUMERO_TELEPHONE);
+
+        // WHEN
+        Assertions.assertThrows(ConstraintViolationException.class, () -> subject.validate(validUtilisateur));
+    }
+
+    @Test
     void testMauvaisPasseport() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(false)
+        validUtilisateur.setCreation(false);
+        validUtilisateur.setPassword(VALID_PASSWORD)
                 .setNumeroPasseport(INVALID_PASSEPORT)
                 .setNom(VALID_NOM)
                 .setPrenom(VALID_PRENOM)
@@ -85,8 +104,8 @@ class UpdateUtilisateurValidaterTest {
     void testMauvaisNom() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(false)
+        validUtilisateur.setCreation(false);
+        validUtilisateur.setPassword(VALID_PASSWORD)
                 .setNumeroPasseport(VALID_PASSEPORT)
                 .setNom(INVALID_NOM)
                 .setPrenom(VALID_PRENOM)
@@ -102,8 +121,8 @@ class UpdateUtilisateurValidaterTest {
     void testMauvaisPrenom() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(false)
+        validUtilisateur.setCreation(false);
+        validUtilisateur.setPassword(VALID_PASSWORD)
                 .setNumeroPasseport(VALID_PASSEPORT)
                 .setNom(VALID_NOM)
                 .setPrenom(INVALID_PRENOM)
@@ -119,8 +138,8 @@ class UpdateUtilisateurValidaterTest {
     void testMauvaisDateNaissance() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(false)
+        validUtilisateur.setCreation(false);
+        validUtilisateur.setPassword(VALID_PASSWORD)
                 .setNumeroPasseport(VALID_PASSEPORT)
                 .setNom(VALID_NOM)
                 .setPrenom(VALID_PRENOM)
@@ -136,8 +155,8 @@ class UpdateUtilisateurValidaterTest {
     void testMauvaisPays() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(false)
+        validUtilisateur.setCreation(false);
+        validUtilisateur.setPassword(VALID_PASSWORD)
                 .setNumeroPasseport(VALID_PASSEPORT)
                 .setNom(VALID_NOM)
                 .setPrenom(VALID_PRENOM)
@@ -153,8 +172,8 @@ class UpdateUtilisateurValidaterTest {
     void testMauvaisNumeroTelephone() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(false)
+        validUtilisateur.setCreation(false);
+        validUtilisateur.setPassword(VALID_PASSWORD)
                 .setNumeroPasseport(VALID_PASSEPORT)
                 .setNom(VALID_NOM)
                 .setPrenom(VALID_PRENOM)
@@ -170,8 +189,8 @@ class UpdateUtilisateurValidaterTest {
     void testUtilisateurNoExist() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(false)
+        validUtilisateur.setCreation(false);
+        validUtilisateur.setPassword(VALID_PASSWORD)
                 .setNumeroPasseport(VALID_PASSEPORT)
                 .setNom(VALID_NOM)
                 .setPrenom(VALID_PRENOM)
@@ -188,8 +207,8 @@ class UpdateUtilisateurValidaterTest {
     void testCreateUtilisateurExist() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(true)
+        validUtilisateur.setCreation(true);
+        validUtilisateur.setPassword(VALID_PASSWORD)
                 .setNumeroPasseport(VALID_PASSEPORT)
                 .setNom(VALID_NOM)
                 .setPrenom(VALID_PRENOM)
@@ -206,8 +225,7 @@ class UpdateUtilisateurValidaterTest {
     void testAllNull() {
         // GIVEN
         final UpdateUtilisateurInput validUtilisateur = new UpdateUtilisateurInput();
-        validUtilisateur
-                .setCreation(false);
+        validUtilisateur.setCreation(false);
 
         // WHEN
         Assertions.assertThrows(ConstraintViolationException.class, () -> subject.validate(validUtilisateur));
