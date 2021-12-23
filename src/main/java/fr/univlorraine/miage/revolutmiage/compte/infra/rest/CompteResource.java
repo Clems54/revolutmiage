@@ -41,17 +41,6 @@ public class CompteResource extends DefaultResource {
         ).build();
     }
 
-    @PutMapping("{iban}")
-    @Transactional(readOnly = false)
-    public ResponseEntity<?> modifierCompte(@PathVariable final String iban, @RequestBody final UpdateCompteInput input) {
-        if (catalog.findByIban(iban).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        input.setIban(iban);
-        updateCompte.accept(input.setCreation(false));
-        return ResponseEntity.noContent().build();
-    }
-
     @DeleteMapping("{iban}")
     @Transactional(readOnly = false)
     public ResponseEntity<?> supprimerCompte(@PathVariable final String iban) {
