@@ -26,7 +26,7 @@ public class UpdateCarteImpl implements UpdateCarte {
                 .setLocalisation(input.isLocalisation())
                 .setVirtuelle(input.isVirtuelle())
                 .setPlafond(input.getPlafond())
-                .setCompte(compteCatalog.getByIban(input.getCompteIban()));
+                .setCompteIban(input.getCompteIban());
 
         catalog.save(toSave);
     }

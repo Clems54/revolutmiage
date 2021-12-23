@@ -19,5 +19,5 @@ public class CarteDTO {
     private int plafond;
     private boolean sansContact;
     private boolean virtuelle;
-    private CompteDTO compte;
+    private String compteIban;
 }

@@ -38,6 +38,11 @@ public class CompteResource extends DefaultResource {
         return ResponseEntity.of(catalog.findByIban(iban).map(compte -> SimpleResponse.sendDouble("solde", compte.getSolde())));
     }
 
+    @GetMapping("{iban}/cartes")
+    public ResponseEntity<?> getCompteCartes(@PathVariable final String iban) {
+        return ResponseEntity.of(catalog.findByIban(iban).map(compte -> SimpleResponse.sendObjectList("cartes", compte.getCartes())));
+    }
+
     @PostMapping
     @Transactional(readOnly = false)
     public ResponseEntity<?> creerCompte(@RequestBody final UpdateCompteInput input) {

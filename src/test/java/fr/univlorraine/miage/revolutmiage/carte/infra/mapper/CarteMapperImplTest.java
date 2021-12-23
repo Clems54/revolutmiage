@@ -34,7 +34,7 @@ class CarteMapperImplTest {
                 .setCode(CODE)
                 .setCryptogramme(CRYPTOGRAMME)
                 .setNumeroCarte(NUMERO_CARTE)
-                .setCompte(new Compte().setIban(IBAN));
+                .setCompteIban(IBAN);
 
         // WHEN
         final CarteDTO actual = subject.toDto(obj);
@@ -48,7 +48,7 @@ class CarteMapperImplTest {
         Assertions.assertEquals(CODE, actual.getCode());
         Assertions.assertEquals(CRYPTOGRAMME, actual.getCryptogramme());
         Assertions.assertEquals(NUMERO_CARTE, actual.getNumeroCarte());
-        Assertions.assertEquals(IBAN, actual.getCompte().getIban());
+        Assertions.assertEquals(IBAN, actual.getCompteIban());
     }
 
     @Test
@@ -64,7 +64,7 @@ class CarteMapperImplTest {
                 .setCode(CODE)
                 .setCryptogramme(CRYPTOGRAMME)
                 .setNumeroCarte(NUMERO_CARTE)
-                .setCompte(new CompteDTO().setIban(IBAN));
+                .setCompteIban(IBAN);
 
         // WHEN
         final Carte actual = subject.toObj(dto);
@@ -78,6 +78,6 @@ class CarteMapperImplTest {
         Assertions.assertEquals(CODE, actual.getCode());
         Assertions.assertEquals(CRYPTOGRAMME, actual.getCryptogramme());
         Assertions.assertEquals(NUMERO_CARTE, actual.getNumeroCarte());
-        Assertions.assertEquals(IBAN, actual.getCompte().getIban());
+        Assertions.assertEquals(IBAN, actual.getCompteIban());
     }
 }

@@ -25,6 +25,5 @@ public class Carte {
     private int plafond;
     private boolean sansContact;
     private boolean virtuelle;
-    @ManyToOne
-    private Compte compte;
+    private String compteIban;
 }
