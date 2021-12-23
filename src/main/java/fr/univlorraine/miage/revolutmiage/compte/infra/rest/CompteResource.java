@@ -71,6 +71,12 @@ public class CompteResource extends DefaultResource {
         return carteResource.creerCarte(input);
     }
 
+    @PutMapping("{iban}/cartes/{numeroCarte}")
+    public ResponseEntity<?> modifierCompteCarte(@PathVariable final String iban, @PathVariable final String numeroCarte, @RequestBody final UpdateCarteInput input) {
+        input.setCompteIban(iban);
+        return carteResource.modifierCarte(numeroCarte, input);
+    }
+
     @DeleteMapping("{iban}")
     @Transactional(readOnly = false)
     public ResponseEntity<?> supprimerCompte(@PathVariable final String iban) {
