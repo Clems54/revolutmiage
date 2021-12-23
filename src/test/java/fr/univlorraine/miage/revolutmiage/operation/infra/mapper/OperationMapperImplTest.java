@@ -1,6 +1,5 @@
 package fr.univlorraine.miage.revolutmiage.operation.infra.mapper;
 
-import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.compte.infra.dto.CompteDTO;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
 import fr.univlorraine.miage.revolutmiage.operation.infra.dto.OperationDTO;
@@ -16,6 +15,7 @@ import java.util.UUID;
 @SpringBootTest
 class OperationMapperImplTest {
     public static final String IBAN = "FR761034328909432347";
+    public static final String IBAN2 = "FR761034485623415647";
     public static final String LIBELLE = "Libelle";
     public static final String CATEGORIE = "Categorie";
     public static final LocalDateTime DATE_OPERATION = LocalDateTime.now();
@@ -39,7 +39,8 @@ class OperationMapperImplTest {
                 .setMontant(MONTANT)
                 .setPays(PAYS)
                 .setTaux(TAUX)
-                .setCompteCrediteur(new Compte().setIban(IBAN));
+                .setIbanCompteCrediteur(IBAN)
+                .setIbanCompteDebiteur(IBAN2);
 
         // WHEN
         final OperationDTO actual = subject.toDto(obj);
@@ -52,7 +53,8 @@ class OperationMapperImplTest {
         Assertions.assertEquals(MONTANT, actual.getMontant());
         Assertions.assertEquals(PAYS, actual.getPays());
         Assertions.assertEquals(TAUX, actual.getTaux());
-        Assertions.assertEquals(IBAN, actual.getCompteCrediteur().getIban());
+        Assertions.assertEquals(IBAN, actual.getIbanCompteCrediteur());
+        Assertions.assertEquals(IBAN2, actual.getIbanCompteDebiteur());
     }
 
     @Test
@@ -67,7 +69,8 @@ class OperationMapperImplTest {
                 .setMontant(MONTANT)
                 .setPays(PAYS)
                 .setTaux(TAUX)
-                .setCompteCrediteur(new CompteDTO().setIban(IBAN));
+                .setIbanCompteCrediteur(IBAN)
+                .setIbanCompteDebiteur(IBAN2);
 
         // WHEN
         final Operation actual = subject.toObj(dto);
@@ -80,6 +83,7 @@ class OperationMapperImplTest {
         Assertions.assertEquals(MONTANT, actual.getMontant());
         Assertions.assertEquals(PAYS, actual.getPays());
         Assertions.assertEquals(TAUX, actual.getTaux());
-        Assertions.assertEquals(IBAN, actual.getCompteCrediteur().getIban());
+        Assertions.assertEquals(IBAN, actual.getIbanCompteCrediteur());
+        Assertions.assertEquals(IBAN2, actual.getIbanCompteDebiteur());
     }
 }

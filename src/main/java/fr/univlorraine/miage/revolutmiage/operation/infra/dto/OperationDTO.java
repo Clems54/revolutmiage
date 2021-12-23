@@ -16,7 +16,8 @@ public class OperationDTO {
     private String libelle;
     private double montant;
     private double taux;
-    private CompteDTO compteCrediteur;
+    private String ibanCompteCrediteur;
+    private String ibanCompteDebiteur;
     private String categorie;
     private String pays;
 }

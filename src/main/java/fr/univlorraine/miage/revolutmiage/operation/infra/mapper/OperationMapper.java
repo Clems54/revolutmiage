@@ -1,6 +1,5 @@
 package fr.univlorraine.miage.revolutmiage.operation.infra.mapper;
 
-import fr.univlorraine.miage.revolutmiage.compte.infra.mapper.CompteMapper;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
 import fr.univlorraine.miage.revolutmiage.operation.infra.dto.OperationDTO;
 import org.mapstruct.Mapper;
@@ -9,7 +8,7 @@ import org.mapstruct.Mapping;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Mapper(uses = {CompteMapper.class}, componentModel = "spring", imports = {LocalDateTime.class, UUID.class})
+@Mapper(componentModel = "spring", imports = {LocalDateTime.class, UUID.class})
 public interface OperationMapper {
 
     @Mapping(target = "dateOperation", expression = "java(entity.getDateOperation().toString())")

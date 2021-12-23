@@ -24,8 +24,8 @@ public class Operation {
     private String libelle;
     private double montant;
     private double taux;
-    @ManyToOne
-    private Compte compteCrediteur;
+    private String ibanCompteCrediteur;
+    private String ibanCompteDebiteur;
     private String categorie;
     private String pays;
 }
