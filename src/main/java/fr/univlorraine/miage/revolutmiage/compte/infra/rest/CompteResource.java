@@ -86,4 +86,9 @@ public class CompteResource extends DefaultResource {
         deleteCompte.accept(new DeleteCompteInput().setIban(iban));
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("{iban}/cartes/{numeroCarte}")
+    public ResponseEntity<?> supprimerCompteCarte(@PathVariable final String iban, @PathVariable final String numeroCarte) {
+        return carteResource.supprimerCarte(numeroCarte);
+    }
 }
