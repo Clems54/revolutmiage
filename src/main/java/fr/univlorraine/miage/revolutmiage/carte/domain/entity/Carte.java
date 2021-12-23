@@ -1,6 +1,5 @@
 package fr.univlorraine.miage.revolutmiage.carte.domain.entity;
 
-import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +7,6 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Getter
 @Setter

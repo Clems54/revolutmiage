@@ -1,6 +1,5 @@
 package fr.univlorraine.miage.revolutmiage.operation.infra.dto;
 
-import fr.univlorraine.miage.revolutmiage.compte.infra.dto.CompteDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

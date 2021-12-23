@@ -2,8 +2,6 @@ package fr.univlorraine.miage.revolutmiage.carte.infra.mapper;
 
 import fr.univlorraine.miage.revolutmiage.carte.domain.entity.Carte;
 import fr.univlorraine.miage.revolutmiage.carte.infra.dto.CarteDTO;
-import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
-import fr.univlorraine.miage.revolutmiage.compte.infra.dto.CompteDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

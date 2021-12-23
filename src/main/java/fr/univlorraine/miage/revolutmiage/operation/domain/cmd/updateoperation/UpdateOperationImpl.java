@@ -1,14 +1,9 @@
 package fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation;
 
-import fr.univlorraine.miage.revolutmiage.compte.domain.catalog.CompteCatalog;
-import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
-import fr.univlorraine.miage.revolutmiage.utilisateur.domain.catalog.UtilisateurCatalog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

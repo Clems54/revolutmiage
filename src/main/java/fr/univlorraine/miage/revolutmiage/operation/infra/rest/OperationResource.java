@@ -1,7 +1,5 @@
 package fr.univlorraine.miage.revolutmiage.operation.infra.rest;
 
-import fr.univlorraine.miage.revolutmiage.carte.domain.cmd.updatecarte.UpdateCarteInput;
-import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.deletecompte.DeleteCompteInput;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation.UpdateOperation;
 import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation.UpdateOperationInput;
