@@ -20,4 +20,6 @@ public class CompteInput {
     @NotBlank
     @Pattern(regexp = "^[0-9]{2}[a-zA-Z]{2}[0-9]{5}$")
     private String numeroPasseportUtilisateur;
+
+    private double solde;
 }

@@ -12,5 +12,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class CompteDTO {
     private String iban;
+    private double solde;
     private UtilisateurDTO utilisateur;
 }

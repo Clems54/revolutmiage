@@ -8,6 +8,7 @@ import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.updatecompte.UpdateC
 import fr.univlorraine.miage.revolutmiage.compte.infra.mapper.CompteMapper;
 import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
 import fr.univlorraine.miage.revolutmiage.utils.infra.rest.DefaultResource;
+import fr.univlorraine.miage.revolutmiage.utils.infra.rest.SimpleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,11 @@ public class CompteResource extends DefaultResource {
     @GetMapping("{iban}")
     public ResponseEntity<?> getCompteById(@PathVariable final String iban) {
         return ResponseEntity.of(catalog.findByIban(iban).map(compteMapper::toDto));
+    }
+
+    @GetMapping("{iban}/solde")
+    public ResponseEntity<?> getCompteSolde(@PathVariable final String iban) {
+        return ResponseEntity.of(catalog.findByIban(iban).map(compte -> SimpleResponse.sendDouble("solde", compte.getSolde())));
     }
 
     @PostMapping

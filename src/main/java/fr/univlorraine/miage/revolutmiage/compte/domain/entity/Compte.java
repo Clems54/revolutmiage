@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 public class Compte {
     @Id
     private String iban;
+    private double solde;
     @ManyToOne
     private Utilisateur utilisateur;
 }
