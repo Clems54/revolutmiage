@@ -5,6 +5,7 @@ import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.deletecompte.DeleteC
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.deletecompte.DeleteCompteInput;
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.updatecompte.UpdateCompte;
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.updatecompte.UpdateCompteInput;
+import fr.univlorraine.miage.revolutmiage.compte.infra.mapper.CompteMapper;
 import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
 import fr.univlorraine.miage.revolutmiage.utils.infra.rest.DefaultResource;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,12 @@ public class CompteResource extends DefaultResource {
     private final CompteCatalog catalog;
     private final UpdateCompte updateCompte;
     private final DeleteCompte deleteCompte;
+    private final CompteMapper compteMapper;
+
+    @GetMapping("{iban}")
+    public ResponseEntity<?> getCompteById(@PathVariable final String iban) {
+        return ResponseEntity.of(catalog.findByIban(iban).map(compteMapper::toDto));
+    }
 
     @PostMapping
     @Transactional(readOnly = false)
