@@ -19,6 +19,5 @@ public class UtilisateurDTO {
     private String pays;
     private String numeroPasseport;
     private String numeroTelephone;
-    private String secret;
     private List<CompteDTO> comptes;
 }

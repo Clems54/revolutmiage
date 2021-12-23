@@ -60,7 +60,6 @@ class UtilisateurMapperImplTest {
         Assertions.assertEquals(NUMERO_PASSEPORT, actual.getNumeroPasseport());
         Assertions.assertEquals(DATE_DE_NAISSANCE, LocalDate.parse(actual.getDateDeNaissance()));
         Assertions.assertEquals(NUMERO_TELEPHONE, actual.getNumeroTelephone());
-        Assertions.assertEquals(SECRET, actual.getSecret());
         Assertions.assertEquals(COMPTES.size(), actual.getComptes().size());
     }
 
@@ -75,7 +74,6 @@ class UtilisateurMapperImplTest {
                 .setNumeroPasseport(NUMERO_PASSEPORT)
                 .setDateDeNaissance(DATE_DE_NAISSANCE.toString())
                 .setNumeroTelephone(NUMERO_TELEPHONE)
-                .setSecret(SECRET)
                 .setComptes(COMPTES_DTO);
 
         // WHEN
@@ -88,7 +86,6 @@ class UtilisateurMapperImplTest {
         Assertions.assertEquals(NUMERO_PASSEPORT, actual.getNumeroPasseport());
         Assertions.assertEquals(DATE_DE_NAISSANCE, actual.getDateDeNaissance());
         Assertions.assertEquals(NUMERO_TELEPHONE, actual.getNumeroTelephone());
-        Assertions.assertEquals(SECRET, actual.getSecret());
         Assertions.assertEquals(COMPTES_DTO.size(), actual.getComptes().size());
     }
 }

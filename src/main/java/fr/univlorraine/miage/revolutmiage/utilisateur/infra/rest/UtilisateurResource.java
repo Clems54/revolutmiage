@@ -6,6 +6,7 @@ import fr.univlorraine.miage.revolutmiage.utilisateur.domain.cmd.deleteutilisate
 import fr.univlorraine.miage.revolutmiage.utilisateur.domain.cmd.updateutilisateur.UpdateUtilisateur;
 import fr.univlorraine.miage.revolutmiage.utilisateur.domain.cmd.updateutilisateur.UpdateUtilisateurInput;
 import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
+import fr.univlorraine.miage.revolutmiage.utilisateur.infra.mapper.UtilisateurMapper;
 import fr.univlorraine.miage.revolutmiage.utils.infra.rest.DefaultResource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,17 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Transactional(readOnly = true)
 @RequestMapping("api/utilisateurs")
 @RequiredArgsConstructor
-@RolesAllowed("ROLE_USER")
 public class UtilisateurResource extends DefaultResource {
     private final UpdateUtilisateur updateUtilisateur;
     private final DeleteUtilisateur deleteUtilisateur;
     private final UtilisateurCatalog catalog;
+    private final UtilisateurMapper utilisateurMapper;
+
+    @RolesAllowed("ROLE_USER")
+    @GetMapping("{numeroPasseport}")
+    public ResponseEntity<?> getUtilisateur(@PathVariable final String numeroPasseport) {
+        return ResponseEntity.of(catalog.findByNumeroPasseport(numeroPasseport).map(utilisateurMapper::toDto));
+    }
 
     @PostMapping
     @Transactional(readOnly = false)
@@ -35,6 +42,7 @@ public class UtilisateurResource extends DefaultResource {
         ).build();
     }
 
+    @RolesAllowed("ROLE_USER")
     @PutMapping("{numeroPasseport}")
     @Transactional(readOnly = false)
     public ResponseEntity<?> modifierUtilisateur(@PathVariable final String numeroPasseport, @RequestBody final UpdateUtilisateurInput input) {
@@ -46,6 +54,7 @@ public class UtilisateurResource extends DefaultResource {
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed("ROLE_USER")
     @DeleteMapping("{numeroPasseport}")
     @Transactional(readOnly = false)
     public ResponseEntity<?> supprimerUtilisateur(@PathVariable final String numeroPasseport) {
