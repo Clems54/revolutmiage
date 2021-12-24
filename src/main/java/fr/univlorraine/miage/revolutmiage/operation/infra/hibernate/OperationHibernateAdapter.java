@@ -1,6 +1,5 @@
 package fr.univlorraine.miage.revolutmiage.operation.infra.hibernate;
 
-import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
 import lombok.RequiredArgsConstructor;

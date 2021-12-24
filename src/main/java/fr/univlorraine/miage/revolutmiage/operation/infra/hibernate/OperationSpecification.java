@@ -17,7 +17,7 @@ public class OperationSpecification implements Specification<Operation> {
     @Override
     public Predicate toPredicate(final Root<Operation> root, final CriteriaQuery<?> query, final CriteriaBuilder builder) {
         if (critereRecherche.getOperation().equalsIgnoreCase("=")) {
-            return builder.equal(builder.upper(root.<String>get(critereRecherche.getKey())), critereRecherche.getValue().toString().toUpperCase());
+            return builder.equal(builder.upper(root.get(critereRecherche.getKey())), critereRecherche.getValue().toString().toUpperCase());
         } else {
             return null;
         }

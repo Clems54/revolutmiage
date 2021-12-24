@@ -8,7 +8,6 @@ import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
 import fr.univlorraine.miage.revolutmiage.utils.infra.rest.DefaultResource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
