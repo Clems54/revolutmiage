@@ -18,7 +18,6 @@ import javax.annotation.security.RolesAllowed;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
-@Transactional(readOnly = true)
 @RequestMapping("api/utilisateurs")
 @RequiredArgsConstructor
 public class UtilisateurResource extends DefaultResource {
@@ -34,7 +33,6 @@ public class UtilisateurResource extends DefaultResource {
     }
 
     @PostMapping
-    @Transactional(readOnly = false)
     public ResponseEntity<?> creerUtilisateur(@RequestBody final UpdateUtilisateurInput input) {
         updateUtilisateur.accept(input.setCreation(true));
         return ResponseEntity.created(
@@ -44,7 +42,6 @@ public class UtilisateurResource extends DefaultResource {
 
     @RolesAllowed("ROLE_USER")
     @PutMapping("{numeroPasseport}")
-    @Transactional(readOnly = false)
     public ResponseEntity<?> modifierUtilisateur(@PathVariable final String numeroPasseport, @RequestBody final UpdateUtilisateurInput input) {
         if (catalog.findByNumeroPasseport(numeroPasseport).isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -56,7 +53,6 @@ public class UtilisateurResource extends DefaultResource {
 
     @RolesAllowed("ROLE_USER")
     @DeleteMapping("{numeroPasseport}")
-    @Transactional(readOnly = false)
     public ResponseEntity<?> supprimerUtilisateur(@PathVariable final String numeroPasseport) {
         if (catalog.findByNumeroPasseport(numeroPasseport).isEmpty()) {
             return ResponseEntity.notFound().build();

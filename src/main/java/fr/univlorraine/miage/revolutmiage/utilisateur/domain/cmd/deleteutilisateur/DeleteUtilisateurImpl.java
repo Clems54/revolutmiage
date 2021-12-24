@@ -14,6 +14,6 @@ public class DeleteUtilisateurImpl implements DeleteUtilisateur {
     public void accept(final DeleteUtilisateurInput input) {
         validater.validate(input);
 
-        catalog.delete(input.getNumeroPasseport());
+        catalog.deleteById(input.getNumeroPasseport());
     }
 }

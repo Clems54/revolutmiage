@@ -15,6 +15,7 @@ public class CarteHibernateAdapter implements CarteCatalog {
     private final CarteRepository repository;
 
     @Override
+    @Transactional(readOnly = false)
     public Carte save(final Carte carte) {
         return repository.save(carte);
     }
@@ -25,7 +26,8 @@ public class CarteHibernateAdapter implements CarteCatalog {
     }
 
     @Override
-    public void delete(final String numeroCarte) {
+    @Transactional(readOnly = false)
+    public void deleteById(final String numeroCarte) {
         repository.deleteByNumeroCarte(numeroCarte);
     }
 }

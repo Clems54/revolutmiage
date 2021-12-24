@@ -9,7 +9,7 @@ public interface CompteCatalog {
 
     Optional<Compte> findByIban(String iban);
 
-    void delete(String iban);
+    void deleteById(String iban);
 
     Compte getByIban(String iban);
 }

@@ -9,5 +9,5 @@ public interface CarteCatalog {
 
     Optional<Carte> findByNumeroCarte(String numeroCarte);
 
-    void delete(String numeroCarte);
+    void deleteById(String numeroCarte);
 }

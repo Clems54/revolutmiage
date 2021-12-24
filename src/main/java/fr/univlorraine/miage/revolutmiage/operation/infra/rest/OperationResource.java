@@ -32,7 +32,6 @@ public class OperationResource extends DefaultResource {
     }
 
     @PostMapping
-    @Transactional(readOnly = false)
     public ResponseEntity<?> creerOperation(@RequestBody final UpdateOperationInput input) {
         input.setDateOperation(LocalDateTime.now()).setIdOperation(UUID.randomUUID());
         updateOperation.accept(input.setCreation(true));

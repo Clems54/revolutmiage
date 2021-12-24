@@ -11,5 +11,5 @@ public interface UtilisateurCatalog {
 
     Optional<Utilisateur> findByNumeroPasseport(String numeroPasseport);
 
-    void delete(String numeroPasseport);
+    void deleteById(String numeroPasseport);
 }

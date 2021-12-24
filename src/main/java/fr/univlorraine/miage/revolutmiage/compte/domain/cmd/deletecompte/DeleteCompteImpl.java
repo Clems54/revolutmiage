@@ -14,6 +14,6 @@ public class DeleteCompteImpl implements DeleteCompte {
     public void accept(final DeleteCompteInput input) {
         validater.validate(input);
 
-        catalog.delete(input.getIban());
+        catalog.deleteById(input.getIban());
     }
 }

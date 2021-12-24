@@ -20,6 +20,7 @@ public class UtilisateurHibernateAdapter implements UtilisateurCatalog {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Utilisateur save(final Utilisateur utilisateur) {
         return repository.save(utilisateur);
     }
@@ -30,7 +31,8 @@ public class UtilisateurHibernateAdapter implements UtilisateurCatalog {
     }
 
     @Override
-    public void delete(final String numeroPasseport) {
+    @Transactional(readOnly = false)
+    public void deleteById(final String numeroPasseport) {
         repository.deleteByNumeroPasseport(numeroPasseport);
     }
 }

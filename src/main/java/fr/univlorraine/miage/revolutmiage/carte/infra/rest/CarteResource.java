@@ -18,7 +18,6 @@ import javax.annotation.security.RolesAllowed;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
-@Transactional(readOnly = true)
 @RequestMapping("api/cartes")
 @RequiredArgsConstructor
 @RolesAllowed("ROLE_USER")
@@ -34,7 +33,6 @@ public class CarteResource extends DefaultResource {
     }
 
     @PostMapping
-    @Transactional(readOnly = false)
     public ResponseEntity<?> creerCarte(@RequestBody final UpdateCarteInput input) {
         updateCarte.accept(input.setCreation(true));
         return ResponseEntity.created(
@@ -43,7 +41,6 @@ public class CarteResource extends DefaultResource {
     }
 
     @PutMapping("{numeroCarte}")
-    @Transactional(readOnly = false)
     public ResponseEntity<?> modifierCarte(@PathVariable final String numeroCarte, @RequestBody final UpdateCarteInput input) {
         if (catalog.findByNumeroCarte(numeroCarte).isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -54,7 +51,6 @@ public class CarteResource extends DefaultResource {
     }
 
     @DeleteMapping("{numeroCarte}")
-    @Transactional(readOnly = false)
     public ResponseEntity<?> supprimerCarte(@PathVariable final String numeroCarte) {
         if (catalog.findByNumeroCarte(numeroCarte).isEmpty()) {
             return ResponseEntity.notFound().build();

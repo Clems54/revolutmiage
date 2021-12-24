@@ -14,6 +14,6 @@ public class DeleteCarteImpl implements DeleteCarte {
     public void accept(final DeleteCarteInput input) {
         validater.validate(input);
 
-        catalog.delete(input.getNumeroCarte());
+        catalog.deleteById(input.getNumeroCarte());
     }
 }

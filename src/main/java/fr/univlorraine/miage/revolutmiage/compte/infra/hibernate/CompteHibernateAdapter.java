@@ -15,6 +15,7 @@ public class CompteHibernateAdapter implements CompteCatalog {
     private final CompteRepository repository;
 
     @Override
+    @Transactional(readOnly = false)
     public Compte save(final Compte compte) {
         return repository.save(compte);
     }
@@ -25,7 +26,8 @@ public class CompteHibernateAdapter implements CompteCatalog {
     }
 
     @Override
-    public void delete(final String iban) {
+    @Transactional(readOnly = false)
+    public void deleteById(final String iban) {
         repository.deleteByIban(iban);
     }
 
