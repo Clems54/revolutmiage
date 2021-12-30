@@ -14,7 +14,7 @@ public abstract class DefaultResource {
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(ConstraintViolationException.class)
-    public Map<String, String> handleValidationExceptions(final ConstraintViolationException ex) {
+    public Map<String, Map<String, String>> handleValidationExceptions(final ConstraintViolationException ex) {
         final Map<String, String> errors = new HashMap<>();
         ex.getConstraintViolations().forEach(error -> {
             final StringJoiner fieldName = new StringJoiner(".")
@@ -25,12 +25,16 @@ public abstract class DefaultResource {
             final String errorMessage = error.getMessage();
             errors.put(fieldName.toString().toLowerCase(), errorMessage);
         });
-        return errors;
+        return new HashMap<>() {{
+            put("problems", errors);
+        }};
     }
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(InputValidationException.class)
-    public Map<String, String> handleValidationExceptions(final InputValidationException ex) {
-        return ex.getProblems();
+    public Map<String, Map<String, String>> handleValidationExceptions(final InputValidationException ex) {
+        return new HashMap<>() {{
+            put("problems", ex.getProblems());
+        }};
     }
 }
