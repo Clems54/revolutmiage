@@ -8,6 +8,7 @@ import fr.univlorraine.miage.revolutmiage.utils.domain.cmd.DefaultValidater;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,7 +24,8 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
     }
 
     @Override
-    protected void customValidate(final Map<String, String> problems, final UpdateOperationInput input) {
+    protected Map<String, String> customValidate(final UpdateOperationInput input) {
+        final Map<String, String> problems = new HashMap<>();
         final Optional<Operation> optionalCarte = catalog.findById(input.getIdOperation());
         if (optionalCarte.isPresent() && input.isCreation()) {
             problems.put(key("operation", "exist"), "L'opération est déjà enregistré");
@@ -32,6 +34,8 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
         }
         checkCompteExist(problems, input.getIbanCompteCrediteur(), "comptecrediteur");
         checkCompteExist(problems, input.getIbanCompteDebiteur(), "comptedebiteur");
+
+        return problems;
     }
 
     private void checkCompteExist(final Map<String, String> problems, final String iban, final String attribut) {

@@ -8,6 +8,7 @@ import fr.univlorraine.miage.revolutmiage.utils.domain.cmd.DefaultValidater;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,7 +24,8 @@ public class UpdateCompteValidater extends DefaultValidater<UpdateCompteInput> {
     }
 
     @Override
-    protected void customValidate(final Map<String, String> problems, final UpdateCompteInput input) {
+    protected Map<String, String> customValidate(final UpdateCompteInput input) {
+        final Map<String, String> problems = new HashMap<>();
         final Optional<Compte> optionalCompte = catalog.findByIban(input.getIban());
         if (optionalCompte.isPresent() && input.isCreation()) {
             problems.put(key("iban", "exist"), "Ce numéro d'IBAN est déjà enregistré");
@@ -35,5 +37,7 @@ public class UpdateCompteValidater extends DefaultValidater<UpdateCompteInput> {
         if (optionalUtilisateur.isEmpty()) {
             problems.put(key("utilisateur", "notfound"), "L'utilisateur n'existe pas");
         }
+
+        return problems;
     }
 }

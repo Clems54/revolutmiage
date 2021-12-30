@@ -6,6 +6,7 @@ import fr.univlorraine.miage.revolutmiage.utils.domain.cmd.DefaultValidater;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,12 +20,17 @@ public class UpdateUtilisateurValidater extends DefaultValidater<UpdateUtilisate
     }
 
     @Override
-    protected void customValidate(final Map<String, String> problems, final UpdateUtilisateurInput input) {
+    protected Map<String, String> customValidate(final UpdateUtilisateurInput input) {
+        final Map<String, String> problems = new HashMap<>();
+
         final Optional<Utilisateur> optionalUtilisateur = catalog.findByNumeroPasseport(input.getNumeroPasseport());
         if (optionalUtilisateur.isPresent() && input.isCreation()) {
             problems.put(key("numeropasseport", "exist"), "Ce numéro de passeport est déjà enregistré");
         } else if (!input.isCreation() && optionalUtilisateur.isEmpty()) {
             problems.put(key("numeropasseport", "notfound"), "L'utilisateur n'existe pas");
         }
+
+        return problems;
     }
 }
+

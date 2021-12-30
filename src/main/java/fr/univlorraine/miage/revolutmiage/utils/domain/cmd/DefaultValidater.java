@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -23,14 +22,13 @@ public abstract class DefaultValidater<INPUT> {
             throw new ConstraintViolationException(ENTITY_NAME, violations);
         }
 
-        final Map<String, String> problems = new HashMap<>();
-        customValidate(problems, input);
+        final Map<String, String> problems = customValidate(input);
         if (!problems.isEmpty()) {
             throw new InputValidationException(problems);
         }
     }
 
-    protected abstract void customValidate(final Map<String, String> problems, final INPUT input);
+    protected abstract Map<String, String> customValidate(final INPUT input);
 
     public String key(final String attr, final String error) {
         return new StringJoiner(".").add(ENTITY_NAME).add("validation").add(attr).add(error).toString();
