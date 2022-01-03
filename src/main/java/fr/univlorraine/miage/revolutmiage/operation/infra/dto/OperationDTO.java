@@ -21,4 +21,5 @@ public class OperationDTO {
     private String categorie;
     private String pays;
     private CarteDTO carte;
+    private boolean sansContact;
 }

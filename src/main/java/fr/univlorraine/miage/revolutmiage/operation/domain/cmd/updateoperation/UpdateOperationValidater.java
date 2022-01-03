@@ -44,27 +44,35 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
         checkCompteExist(problems, optionalCompteCrediteur, "comptecrediteur");
         checkCompteExist(problems, optionalCompteDebiteur, "comptedebiteur");
 
-        checkCarte(input, problems, optionalCompteDebiteur);
+        checkCarte(input, problems, optionalCompteDebiteur, optionalOperation);
 
         return problems;
     }
 
-    private void checkCarte(final UpdateOperationInput input, final Map<String, String> problems, final Optional<Compte> optionalCompteDebiteur) {
+    private void checkCarte(final UpdateOperationInput input, final Map<String, String> problems, final Optional<Compte> optionalCompteDebiteur, final Optional<Operation> optionalOperation) {
         if (input.getCarte() != null && !input.getCarte().isEmpty()) {
             final Optional<Carte> optionalCarte = carteCatalog.findByNumeroCarte(input.getCarte());
             if (optionalCarte.isEmpty()) {
                 problems.put(key("carte", "notfound"), "La carte n'existe pas");
             } else {
-                if(optionalCarte.get().isBloquee()) {
+                final Carte carte = optionalCarte.get();
+                if (carte.isBloquee()) {
                     problems.put(key("carte", "bloquee"), "La carte est bloquée");
                 }
 
-                if (problems.isEmpty() && !optionalCompteDebiteur.get().getCartes().contains(optionalCarte.get())) {
-                    // Mettre la même erreur permet de ne pas divulger l'existance de cette carte
-                    problems.put(key("carte", "notfound"), "La carte n'existe pas");
+                if (problems.isEmpty()) {
+                    if (!optionalCompteDebiteur.get().getCartes().contains(carte)) {
+                        // Mettre la même erreur permet de ne pas divulger l'existance de cette carte
+                        problems.put(key("carte", "notfound"), "La carte n'existe pas");
+                    }
+
+                    if(optionalOperation.get().isSansContact() && !carte.isSansContact()) {
+                        problems.put(key("carte", "sanscontact"), "La carte ne permet pas le sans contact");
+                    }
                 }
             }
         }
+
     }
 
     private void checkCompteExist(final Map<String, String> problems, final Optional<Compte> optionalCompte, final String attribut) {

@@ -38,4 +38,5 @@ public class OperationInput {
     private String pays;
     @Pattern(regexp = "^[0-9]{16}$")
     private String carte;
+    private boolean sansContact;
 }

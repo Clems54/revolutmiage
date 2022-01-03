@@ -44,7 +44,8 @@ class OperationMapperImplTest {
                 .setTaux(TAUX)
                 .setIbanCompteCrediteur(IBAN)
                 .setIbanCompteDebiteur(IBAN2)
-                .setCarte(CARTE_OBJ);
+                .setCarte(CARTE_OBJ)
+                .setSansContact(true);
 
         // WHEN
         final OperationDTO actual = subject.toDto(obj);
@@ -60,6 +61,7 @@ class OperationMapperImplTest {
         Assertions.assertEquals(IBAN, actual.getIbanCompteCrediteur());
         Assertions.assertEquals(IBAN2, actual.getIbanCompteDebiteur());
         Assertions.assertEquals(CARTE_OBJ.getNumeroCarte(), actual.getCarte().getNumeroCarte());
+        Assertions.assertTrue(actual.isSansContact());
     }
 
     @Test
@@ -76,7 +78,8 @@ class OperationMapperImplTest {
                 .setTaux(TAUX)
                 .setIbanCompteCrediteur(IBAN)
                 .setIbanCompteDebiteur(IBAN2)
-                .setCarte(CARTE_DTO);
+                .setCarte(CARTE_DTO)
+                .setSansContact(true);
 
         // WHEN
         final Operation actual = subject.toObj(dto);
@@ -92,5 +95,6 @@ class OperationMapperImplTest {
         Assertions.assertEquals(IBAN, actual.getIbanCompteCrediteur());
         Assertions.assertEquals(IBAN2, actual.getIbanCompteDebiteur());
         Assertions.assertEquals(CARTE_DTO.getNumeroCarte(), actual.getCarte().getNumeroCarte());
+        Assertions.assertTrue(actual.isSansContact());
     }
 }

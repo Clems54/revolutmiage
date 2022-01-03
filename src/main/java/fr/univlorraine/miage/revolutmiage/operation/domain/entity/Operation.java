@@ -30,4 +30,5 @@ public class Operation {
     private String pays;
     @ManyToOne
     private Carte carte;
+    private boolean sansContact;
 }
