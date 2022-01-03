@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Mapper(componentModel = "spring", imports = {LocalDateTime.class, UUID.class})
+@Mapper(uses = {OperationMapper.class}, componentModel = "spring", imports = {LocalDateTime.class, UUID.class})
 public interface OperationMapper {
 
     @Mapping(target = "dateOperation", expression = "java(entity.getDateOperation().toString())")

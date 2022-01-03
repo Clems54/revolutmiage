@@ -36,4 +36,6 @@ public class OperationInput {
     @NotBlank
     @Length(min = 1, max = 20)
     private String pays;
+    @Pattern(regexp = "^[0-9]{16}$")
+    private String carte;
 }

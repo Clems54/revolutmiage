@@ -1,5 +1,6 @@
 package fr.univlorraine.miage.revolutmiage.operation.domain.entity;
 
+import fr.univlorraine.miage.revolutmiage.carte.domain.entity.Carte;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -26,4 +28,6 @@ public class Operation {
     private String ibanCompteDebiteur;
     private String categorie;
     private String pays;
+    @ManyToOne
+    private Carte carte;
 }

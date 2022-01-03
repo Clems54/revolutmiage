@@ -1,5 +1,7 @@
 package fr.univlorraine.miage.revolutmiage.operation.infra.mapper;
 
+import fr.univlorraine.miage.revolutmiage.carte.domain.entity.Carte;
+import fr.univlorraine.miage.revolutmiage.carte.infra.dto.CarteDTO;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
 import fr.univlorraine.miage.revolutmiage.operation.infra.dto.OperationDTO;
 import org.junit.jupiter.api.Assertions;
@@ -22,6 +24,8 @@ class OperationMapperImplTest {
     public static final double MONTANT = 10.5;
     public static final String PAYS = "Pays";
     public static final int TAUX = 10;
+    public static final Carte CARTE_OBJ = new Carte().setNumeroCarte("2901647509136723");
+    public static final CarteDTO CARTE_DTO = new CarteDTO().setNumeroCarte("2901647509136723");
 
     @Autowired
     private OperationMapperImpl subject;
@@ -39,7 +43,8 @@ class OperationMapperImplTest {
                 .setPays(PAYS)
                 .setTaux(TAUX)
                 .setIbanCompteCrediteur(IBAN)
-                .setIbanCompteDebiteur(IBAN2);
+                .setIbanCompteDebiteur(IBAN2)
+                .setCarte(CARTE_OBJ);
 
         // WHEN
         final OperationDTO actual = subject.toDto(obj);
@@ -54,6 +59,7 @@ class OperationMapperImplTest {
         Assertions.assertEquals(TAUX, actual.getTaux());
         Assertions.assertEquals(IBAN, actual.getIbanCompteCrediteur());
         Assertions.assertEquals(IBAN2, actual.getIbanCompteDebiteur());
+        Assertions.assertEquals(CARTE_OBJ.getNumeroCarte(), actual.getCarte().getNumeroCarte());
     }
 
     @Test
@@ -69,7 +75,8 @@ class OperationMapperImplTest {
                 .setPays(PAYS)
                 .setTaux(TAUX)
                 .setIbanCompteCrediteur(IBAN)
-                .setIbanCompteDebiteur(IBAN2);
+                .setIbanCompteDebiteur(IBAN2)
+                .setCarte(CARTE_DTO);
 
         // WHEN
         final Operation actual = subject.toObj(dto);
@@ -84,5 +91,6 @@ class OperationMapperImplTest {
         Assertions.assertEquals(TAUX, actual.getTaux());
         Assertions.assertEquals(IBAN, actual.getIbanCompteCrediteur());
         Assertions.assertEquals(IBAN2, actual.getIbanCompteDebiteur());
+        Assertions.assertEquals(CARTE_DTO.getNumeroCarte(), actual.getCarte().getNumeroCarte());
     }
 }

@@ -1,5 +1,6 @@
 package fr.univlorraine.miage.revolutmiage.operation.infra.dto;
 
+import fr.univlorraine.miage.revolutmiage.carte.infra.dto.CarteDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,4 +20,5 @@ public class OperationDTO {
     private String ibanCompteDebiteur;
     private String categorie;
     private String pays;
+    private CarteDTO carte;
 }

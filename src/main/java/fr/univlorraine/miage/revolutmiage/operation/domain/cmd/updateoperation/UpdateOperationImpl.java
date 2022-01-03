@@ -1,5 +1,6 @@
 package fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation;
 
+import fr.univlorraine.miage.revolutmiage.carte.domain.catalog.CarteCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class UpdateOperationImpl implements UpdateOperation {
     private final UpdateOperationValidater validater;
     private final OperationCatalog catalog;
+    private final CarteCatalog carteCatalog;
 
     @Override
     public void accept(final UpdateOperationInput input) {
@@ -24,7 +26,8 @@ public class UpdateOperationImpl implements UpdateOperation {
                 .setPays(input.getPays())
                 .setTaux(input.getTaux())
                 .setIbanCompteCrediteur(input.getIbanCompteCrediteur())
-                .setIbanCompteDebiteur(input.getIbanCompteDebiteur());
+                .setIbanCompteDebiteur(input.getIbanCompteDebiteur())
+                .setCarte(carteCatalog.findByNumeroCarte(input.getCarte()).get());
 
         catalog.save(toSave);
     }

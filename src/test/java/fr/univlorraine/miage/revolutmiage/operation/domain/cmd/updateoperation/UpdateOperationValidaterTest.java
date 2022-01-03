@@ -1,5 +1,6 @@
 package fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation;
 
+import fr.univlorraine.miage.revolutmiage.carte.domain.catalog.CarteCatalog;
 import fr.univlorraine.miage.revolutmiage.compte.domain.catalog.CompteCatalog;
 import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
@@ -33,12 +34,14 @@ class UpdateOperationValidaterTest {
     public static final int VALID_TAUX = 0;
     public static final String VALID_IBAN = "FR4217569000702756912794W52";
     public static final String VALID_IBAN2 = "FR4217569000702756912794W51";
+    public static final String VALID_CARTE = "4837210495832750";
 
     public static final String INVALID_CATEGORIE = "Pe";
     public static final double INVALID_MONTANT = -150.10;
     public static final String INVALID_PAYS = "";
     public static final String INVALID_IBAN = "FR3";
     public static final String INVALID_IBAN2 = "FR4";
+    public static final String INVALID_CARTE = "666";
 
     @Autowired
     private Validator validator;
@@ -46,12 +49,14 @@ class UpdateOperationValidaterTest {
     private CompteCatalog compteCatalog;
     @Mock
     private OperationCatalog operationCatalog;
+    @Mock
+    private CarteCatalog carteCatalog;
 
     private UpdateOperationValidater subject;
 
     @BeforeEach
     void beforeEach() {
-        subject = new UpdateOperationValidater(validator, operationCatalog, compteCatalog);
+        subject = new UpdateOperationValidater(validator, operationCatalog, compteCatalog, carteCatalog);
     }
 
     @Test
@@ -171,6 +176,26 @@ class UpdateOperationValidaterTest {
     }
 
     @Test
+    void testMauvaiseCarte() {
+        // GIVEN
+        final UpdateOperationInput validOperation = new UpdateOperationInput();
+        validOperation.setCreation(false)
+                .setIdOperation(VALID_ID_OPERATION)
+                .setDateOperation(VALID_DATETIME)
+                .setCategorie(VALID_CATEGORIE)
+                .setLibelle(VALID_LIBELLE)
+                .setMontant(VALID_MONTANT)
+                .setPays(VALID_PAYS)
+                .setTaux(VALID_TAUX)
+                .setIbanCompteCrediteur(VALID_IBAN)
+                .setIbanCompteDebiteur(VALID_IBAN2)
+                .setCarte(INVALID_CARTE);
+
+        // WHEN
+        Assertions.assertThrows(ConstraintViolationException.class, () -> subject.validate(validOperation));
+    }
+
+    @Test
     void testAllNull() {
         // GIVEN
         final UpdateOperationInput validOperation = new UpdateOperationInput();
@@ -222,6 +247,31 @@ class UpdateOperationValidaterTest {
         Mockito.when(compteCatalog.findByIban(validOperation.getIbanCompteCrediteur())).thenReturn(Optional.of(new Compte()));
         Mockito.when(compteCatalog.findByIban(validOperation.getIbanCompteDebiteur())).thenReturn(Optional.empty());
         Mockito.when(operationCatalog.findById(Mockito.any())).thenReturn(Optional.of(new Operation()));
+
+        Assertions.assertThrows(InputValidationException.class, () -> subject.validate(validOperation));
+    }
+
+    @Test
+    void testCarteNoExist() {
+        // GIVEN
+        final UpdateOperationInput validOperation = new UpdateOperationInput();
+        validOperation.setCreation(false)
+                .setIdOperation(VALID_ID_OPERATION)
+                .setDateOperation(VALID_DATETIME)
+                .setCategorie(VALID_CATEGORIE)
+                .setLibelle(VALID_LIBELLE)
+                .setMontant(VALID_MONTANT)
+                .setPays(VALID_PAYS)
+                .setTaux(VALID_TAUX)
+                .setIbanCompteCrediteur(VALID_IBAN)
+                .setIbanCompteDebiteur(VALID_IBAN2)
+                .setCarte(VALID_CARTE);
+
+        // WHEN
+        Mockito.when(compteCatalog.findByIban(validOperation.getIbanCompteCrediteur())).thenReturn(Optional.of(new Compte()));
+        Mockito.when(compteCatalog.findByIban(validOperation.getIbanCompteDebiteur())).thenReturn(Optional.of(new Compte()));
+        Mockito.when(operationCatalog.findById(Mockito.any())).thenReturn(Optional.of(new Operation()));
+        Mockito.when(carteCatalog.findByNumeroCarte(Mockito.any())).thenReturn(Optional.empty());
 
         Assertions.assertThrows(InputValidationException.class, () -> subject.validate(validOperation));
     }
