@@ -66,8 +66,12 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
                         problems.put(key("carte", "notfound"), "La carte n'existe pas");
                     }
 
-                    if(optionalOperation.get().isSansContact() && !carte.isSansContact()) {
+                    final Operation operation = optionalOperation.get();
+                    if (operation.isSansContact() && !carte.isSansContact()) {
                         problems.put(key("carte", "sanscontact"), "La carte ne permet pas le sans contact");
+                    }
+                    if (operation.getMontant() > carte.getPlafond()) {
+                        problems.put(key("carte", "plafond"), "Le montant de l'opération dépasse le plafond de la carte");
                     }
                 }
             }

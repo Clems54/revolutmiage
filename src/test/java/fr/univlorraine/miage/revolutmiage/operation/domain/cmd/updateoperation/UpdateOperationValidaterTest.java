@@ -259,6 +259,34 @@ class UpdateOperationValidaterTest {
     }
 
     @Test
+    void testCartePlafondDepasse() {
+        // GIVEN
+        final UpdateOperationInput validOperation = new UpdateOperationInput();
+        validOperation.setCreation(false)
+                .setIdOperation(VALID_ID_OPERATION)
+                .setDateOperation(VALID_DATETIME)
+                .setCategorie(VALID_CATEGORIE)
+                .setLibelle(VALID_LIBELLE)
+                .setMontant(VALID_MONTANT)
+                .setPays(VALID_PAYS)
+                .setTaux(VALID_TAUX)
+                .setIbanCompteCrediteur(VALID_IBAN)
+                .setIbanCompteDebiteur(VALID_IBAN2)
+                .setCarte(VALID_CARTE);
+        final ArrayList<Carte> cartes = new ArrayList<>() {{
+            add(new Carte().setNumeroCarte(VALID_CARTE));
+        }};
+
+        // WHEN
+        Mockito.when(compteCatalog.findByIban(Mockito.any())).thenReturn(Optional.of(new Compte().setCartes(cartes)));
+        Mockito.when(operationCatalog.findById(Mockito.any())).thenReturn(Optional.of(new Operation().setMontant(15)));
+        Mockito.when(carteCatalog.findByNumeroCarte(Mockito.any())).thenReturn(
+                Optional.of(new Carte().setNumeroCarte(VALID_CARTE).setPlafond(10)));
+
+        Assertions.assertThrows(InputValidationException.class, () -> subject.validate(validOperation));
+    }
+
+    @Test
     void testAllNull() {
         // GIVEN
         final UpdateOperationInput validOperation = new UpdateOperationInput();
