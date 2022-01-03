@@ -76,7 +76,7 @@ class UpdateOperationValidaterTest {
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(VALID_CARTE);
-        final ArrayList<Carte> cartes = new ArrayList<>(){{
+        final ArrayList<Carte> cartes = new ArrayList<>() {{
             add(new Carte().setNumeroCarte(VALID_CARTE));
         }};
 
@@ -200,6 +200,34 @@ class UpdateOperationValidaterTest {
 
         // WHEN
         Assertions.assertThrows(ConstraintViolationException.class, () -> subject.validate(validOperation));
+    }
+
+    @Test
+    void testCarteBloquee() {
+        // GIVEN
+        final UpdateOperationInput validOperation = new UpdateOperationInput();
+        validOperation.setCreation(false)
+                .setIdOperation(VALID_ID_OPERATION)
+                .setDateOperation(VALID_DATETIME)
+                .setCategorie(VALID_CATEGORIE)
+                .setLibelle(VALID_LIBELLE)
+                .setMontant(VALID_MONTANT)
+                .setPays(VALID_PAYS)
+                .setTaux(VALID_TAUX)
+                .setIbanCompteCrediteur(VALID_IBAN)
+                .setIbanCompteDebiteur(VALID_IBAN2)
+                .setCarte(VALID_CARTE);
+        final ArrayList<Carte> cartes = new ArrayList<>() {{
+            add(new Carte().setNumeroCarte(VALID_CARTE));
+        }};
+
+        // WHEN
+        Mockito.when(compteCatalog.findByIban(Mockito.any())).thenReturn(Optional.of(new Compte().setCartes(cartes)));
+        Mockito.when(operationCatalog.findById(Mockito.any())).thenReturn(Optional.of(new Operation()));
+        Mockito.when(carteCatalog.findByNumeroCarte(Mockito.any())).thenReturn(
+                Optional.of(new Carte().setNumeroCarte(VALID_CARTE).setBloquee(true)));
+
+        Assertions.assertThrows(InputValidationException.class, () -> subject.validate(validOperation));
     }
 
     @Test

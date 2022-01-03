@@ -44,17 +44,27 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
         checkCompteExist(problems, optionalCompteCrediteur, "comptecrediteur");
         checkCompteExist(problems, optionalCompteDebiteur, "comptedebiteur");
 
+        checkCarte(input, problems, optionalCompteDebiteur);
+
+        return problems;
+    }
+
+    private void checkCarte(final UpdateOperationInput input, final Map<String, String> problems, final Optional<Compte> optionalCompteDebiteur) {
         if (input.getCarte() != null && !input.getCarte().isEmpty()) {
             final Optional<Carte> optionalCarte = carteCatalog.findByNumeroCarte(input.getCarte());
             if (optionalCarte.isEmpty()) {
                 problems.put(key("carte", "notfound"), "La carte n'existe pas");
-            } else if (problems.isEmpty() && !optionalCompteDebiteur.get().getCartes().contains(optionalCarte.get())) {
-                // Mettre la même erreur permet de ne pas divulger l'existance de cette carte
-                problems.put(key("carte", "notfound"), "La carte n'existe pas");
+            } else {
+                if(optionalCarte.get().isBloquee()) {
+                    problems.put(key("carte", "bloquee"), "La carte est bloquée");
+                }
+
+                if (problems.isEmpty() && !optionalCompteDebiteur.get().getCartes().contains(optionalCarte.get())) {
+                    // Mettre la même erreur permet de ne pas divulger l'existance de cette carte
+                    problems.put(key("carte", "notfound"), "La carte n'existe pas");
+                }
             }
         }
-
-        return problems;
     }
 
     private void checkCompteExist(final Map<String, String> problems, final Optional<Compte> optionalCompte, final String attribut) {
@@ -62,6 +72,4 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
             problems.put(key(attribut, "notfound"), "Le compte n'existe pas");
         }
     }
-
-
 }
