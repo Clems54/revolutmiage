@@ -30,18 +30,26 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
     @Override
     protected Map<String, String> customValidate(final UpdateOperationInput input) {
         final Map<String, String> problems = new HashMap<>();
+
         final Optional<Operation> optionalOperation = catalog.findById(input.getIdOperation());
+        final Optional<Compte> optionalCompteCrediteur = compteCatalog.findByIban(input.getIbanCompteCrediteur());
+        final Optional<Compte> optionalCompteDebiteur = compteCatalog.findByIban(input.getIbanCompteDebiteur());
+
         if (optionalOperation.isPresent() && input.isCreation()) {
             problems.put(key("operation", "exist"), "L'opération est déjà enregistré");
         } else if (!input.isCreation() && optionalOperation.isEmpty()) {
             problems.put(key("operation", "notfound"), "L'opération n'existe pas");
         }
-        checkCompteExist(problems, input.getIbanCompteCrediteur(), "comptecrediteur");
-        checkCompteExist(problems, input.getIbanCompteDebiteur(), "comptedebiteur");
+
+        checkCompteExist(problems, optionalCompteCrediteur, "comptecrediteur");
+        checkCompteExist(problems, optionalCompteDebiteur, "comptedebiteur");
 
         if (input.getCarte() != null && !input.getCarte().isEmpty()) {
             final Optional<Carte> optionalCarte = carteCatalog.findByNumeroCarte(input.getCarte());
             if (optionalCarte.isEmpty()) {
+                problems.put(key("carte", "notfound"), "La carte n'existe pas");
+            } else if (problems.isEmpty() && !optionalCompteDebiteur.get().getCartes().contains(optionalCarte.get())) {
+                // Mettre la même erreur permet de ne pas divulger l'existance de cette carte
                 problems.put(key("carte", "notfound"), "La carte n'existe pas");
             }
         }
@@ -49,8 +57,7 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
         return problems;
     }
 
-    private void checkCompteExist(final Map<String, String> problems, final String iban, final String attribut) {
-        final Optional<Compte> optionalCompte = compteCatalog.findByIban(iban);
+    private void checkCompteExist(final Map<String, String> problems, final Optional<Compte> optionalCompte, final String attribut) {
         if (optionalCompte.isEmpty()) {
             problems.put(key(attribut, "notfound"), "Le compte n'existe pas");
         }

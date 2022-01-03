@@ -1,5 +1,6 @@
 package fr.univlorraine.miage.revolutmiage.carte.domain.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 @Setter
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode
 @Accessors(chain = true)
 public class Carte {
     @Id

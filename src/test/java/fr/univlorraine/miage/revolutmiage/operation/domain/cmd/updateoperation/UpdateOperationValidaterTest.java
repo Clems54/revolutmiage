@@ -1,6 +1,7 @@
 package fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation;
 
 import fr.univlorraine.miage.revolutmiage.carte.domain.catalog.CarteCatalog;
+import fr.univlorraine.miage.revolutmiage.carte.domain.entity.Carte;
 import fr.univlorraine.miage.revolutmiage.compte.domain.catalog.CompteCatalog;
 import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
@@ -19,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -72,11 +74,16 @@ class UpdateOperationValidaterTest {
                 .setPays(VALID_PAYS)
                 .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
-                .setIbanCompteDebiteur(VALID_IBAN2);
+                .setIbanCompteDebiteur(VALID_IBAN2)
+                .setCarte(VALID_CARTE);
+        final ArrayList<Carte> cartes = new ArrayList<>(){{
+            add(new Carte().setNumeroCarte(VALID_CARTE));
+        }};
 
         // WHEN
-        Mockito.when(compteCatalog.findByIban(Mockito.any())).thenReturn(Optional.of(new Compte()));
+        Mockito.when(compteCatalog.findByIban(Mockito.any())).thenReturn(Optional.of(new Compte().setCartes(cartes)));
         Mockito.when(operationCatalog.findById(Mockito.any())).thenReturn(Optional.of(new Operation()));
+        Mockito.when(carteCatalog.findByNumeroCarte(Mockito.any())).thenReturn(Optional.of(new Carte().setNumeroCarte(VALID_CARTE)));
         subject.validate(validOperation);
     }
 
@@ -272,6 +279,31 @@ class UpdateOperationValidaterTest {
         Mockito.when(compteCatalog.findByIban(validOperation.getIbanCompteDebiteur())).thenReturn(Optional.of(new Compte()));
         Mockito.when(operationCatalog.findById(Mockito.any())).thenReturn(Optional.of(new Operation()));
         Mockito.when(carteCatalog.findByNumeroCarte(Mockito.any())).thenReturn(Optional.empty());
+
+        Assertions.assertThrows(InputValidationException.class, () -> subject.validate(validOperation));
+    }
+
+    @Test
+    void testCartePasDansCompte() {
+        // GIVEN
+        final UpdateOperationInput validOperation = new UpdateOperationInput();
+        validOperation.setCreation(false)
+                .setIdOperation(VALID_ID_OPERATION)
+                .setDateOperation(VALID_DATETIME)
+                .setCategorie(VALID_CATEGORIE)
+                .setLibelle(VALID_LIBELLE)
+                .setMontant(VALID_MONTANT)
+                .setPays(VALID_PAYS)
+                .setTaux(VALID_TAUX)
+                .setIbanCompteCrediteur(VALID_IBAN)
+                .setIbanCompteDebiteur(VALID_IBAN2)
+                .setCarte(VALID_CARTE);
+        final ArrayList<Carte> cartes = new ArrayList<>();
+
+        // WHEN
+        Mockito.when(compteCatalog.findByIban(Mockito.any())).thenReturn(Optional.of(new Compte().setCartes(cartes)));
+        Mockito.when(operationCatalog.findById(Mockito.any())).thenReturn(Optional.of(new Operation()));
+        Mockito.when(carteCatalog.findByNumeroCarte(Mockito.any())).thenReturn(Optional.of(new Carte().setNumeroCarte(VALID_CARTE)));
 
         Assertions.assertThrows(InputValidationException.class, () -> subject.validate(validOperation));
     }
