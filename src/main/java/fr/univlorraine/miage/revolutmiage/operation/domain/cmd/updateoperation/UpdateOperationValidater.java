@@ -41,6 +41,10 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
             problems.put(key("operation", "notfound"), "L'opération n'existe pas");
         }
 
+        if(optionalCompteDebiteur.isPresent() && input.getMontant() > optionalCompteDebiteur.get().getSolde()){
+            problems.put(key("operation", "nomoney"), "Le compte débiteur n'a pas le solde suffisant");
+        }
+
         checkCompteExist(problems, optionalCompteCrediteur, "comptecrediteur");
         checkCompteExist(problems, optionalCompteDebiteur, "comptedebiteur");
 
