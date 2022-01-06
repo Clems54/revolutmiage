@@ -9,6 +9,7 @@ import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.deletecompte.DeleteC
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.updatecompte.UpdateCompte;
 import fr.univlorraine.miage.revolutmiage.compte.domain.cmd.updatecompte.UpdateCompteInput;
 import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
+import fr.univlorraine.miage.revolutmiage.compte.infra.dto.CompteDTO;
 import fr.univlorraine.miage.revolutmiage.compte.infra.mapper.CompteMapper;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
@@ -21,8 +22,11 @@ import fr.univlorraine.miage.revolutmiage.utils.infra.rest.DefaultResource;
 import fr.univlorraine.miage.revolutmiage.utils.infra.rest.SimpleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
@@ -30,6 +34,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,8 +51,20 @@ public class CompteResource extends DefaultResource {
     private final OperationMapper operationMapper;
 
     @GetMapping("{iban}")
-    public ResponseEntity<?> getCompteById(@PathVariable final String iban) {
-        return ResponseEntity.of(catalog.findByIban(iban).map(compteMapper::toDto));
+    public EntityModel<CompteDTO> getCompteById(@PathVariable final String iban) {
+        final Optional<Compte> optionalCompte = catalog.findByIban(iban);
+
+        if (optionalCompte.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        final EntityModel<CompteDTO> resource = EntityModel.of(compteMapper.toDto(optionalCompte.get()));
+
+        resource.add(linkTo(methodOn(this.getClass()).getCompteSolde(optionalCompte.get().getIban())).withRel("compte-solde"));
+        resource.add(linkTo(methodOn(this.getClass()).getCompteCartes(optionalCompte.get().getIban())).withRel("compte-cartes"));
+        resource.add(linkTo(methodOn(this.getClass()).getCompteOperations(optionalCompte.get().getIban(), Optional.empty(), Optional.empty())).withRel("compte-operations"));
+
+        return resource;
     }
 
     @GetMapping("{iban}/solde")

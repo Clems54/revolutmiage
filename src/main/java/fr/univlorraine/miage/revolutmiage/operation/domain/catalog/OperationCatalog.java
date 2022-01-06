@@ -15,4 +15,6 @@ public interface OperationCatalog {
     List<Operation> findAll(Specification<Operation> specs);
 
     void deleteById(UUID id);
+
+    List<Operation> findAllByIdCompte(String iban);
 }

@@ -38,4 +38,9 @@ public class OperationHibernateAdapter implements OperationCatalog {
     public void deleteById(final UUID id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public List<Operation> findAllByIdCompte(final String iban) {
+        return repository.findAllByIbanCompteCrediteurOrIbanCompteDebiteur(iban, iban);
+    }
 }
