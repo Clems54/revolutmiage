@@ -28,7 +28,7 @@ public class UpdateCarteValidater extends DefaultValidater<UpdateCarteInput> {
         final Map<String, String> problems = new HashMap<>();
         final Optional<Carte> optionalCarte = catalog.findByNumeroCarte(input.getNumeroCarte());
         if (optionalCarte.isPresent() && input.isCreation()) {
-            problems.put(key("numerocarte", "exist"), "Ce numéro d'IBAN est déjà enregistré");
+            problems.put(key("numerocarte", "exist"), "Ce numéro de carte est déjà enregistré");
         } else if (!input.isCreation() && optionalCarte.isEmpty()) {
             problems.put(key("numerocarte", "notfound"), "La carte n'existe pas");
         }

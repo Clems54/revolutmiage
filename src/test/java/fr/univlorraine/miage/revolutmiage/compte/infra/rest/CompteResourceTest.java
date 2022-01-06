@@ -5,6 +5,8 @@ import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
 import fr.univlorraine.miage.revolutmiage.operation.infra.dto.OperationDTO;
+import fr.univlorraine.miage.revolutmiage.utilisateur.domain.catalog.UtilisateurCatalog;
+import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +38,7 @@ class CompteResourceTest {
     private static final String INVALID_IBAN_DEBITEUR = "FR56";
     private static final String INVALID_PAYS = "France";
     private static final String INVALID_CATEGORIE = "QUELQUUN";
+    public static final String PASSEPORT = "34RT57419";
 
     @Autowired
     CompteResource subject;
@@ -43,6 +46,8 @@ class CompteResourceTest {
     OperationCatalog operationCatalog;
     @Autowired
     CompteCatalog compteCatalog;
+    @Autowired
+    UtilisateurCatalog utilisateurCatalog;
 
     @BeforeEach
     void beforeEach() {
@@ -82,10 +87,13 @@ class CompteResourceTest {
                 .setIbanCompteDebiteur("FR2");
         operationCatalog.save(toSave4);
 
+        final Utilisateur user = new Utilisateur().setNumeroPasseport(PASSEPORT);
+        utilisateurCatalog.save(user);
+
         final Compte compteCrediteur = new Compte()
-                .setIban(VALID_IBAN_CREDITEUR);
+                .setIban(VALID_IBAN_CREDITEUR).setUtilisateur(user);
         final Compte compteDebiteur = new Compte()
-                .setIban(VALID_IBAN_DEBITEUR);
+                .setIban(VALID_IBAN_DEBITEUR).setUtilisateur(user);
         compteCatalog.save(compteCrediteur);
         compteCatalog.save(compteDebiteur);
     }
@@ -98,6 +106,7 @@ class CompteResourceTest {
         operationCatalog.deleteById(ID_OPERATION4);
         compteCatalog.deleteById(VALID_IBAN_CREDITEUR);
         compteCatalog.deleteById(VALID_IBAN_DEBITEUR);
+        utilisateurCatalog.deleteById(PASSEPORT);
     }
 
     @Test
