@@ -1,6 +1,7 @@
 package fr.univlorraine.miage.revolutmiage.operation.infra.rest;
 
 import fr.univlorraine.miage.revolutmiage.compte.domain.catalog.CompteCatalog;
+import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation.UpdateOperation;
 import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation.UpdateOperationInput;
@@ -52,7 +53,8 @@ public class OperationResource extends DefaultResource {
 
     @GetMapping("comptes/{iban}")
     public ResponseEntity<?> getAllCompteOperations(@PathVariable final String iban) {
-        if (compteCatalog.findByIban(iban).isEmpty()) {
+        final Optional<Compte> optionalCompte = compteCatalog.findByIban(iban);
+        if (optionalCompte.isEmpty() || !optionalCompte.get().getUtilisateur().getNumeroPasseport().equals(currentUsername())) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(catalog.findAllByIdCompte(iban).stream().map(operationMapper::toDto));

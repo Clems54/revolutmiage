@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -28,7 +29,12 @@ public class UtilisateurResource extends DefaultResource {
     @RolesAllowed("ROLE_USER")
     @GetMapping("{numeroPasseport}")
     public ResponseEntity<?> getUtilisateur(@PathVariable final String numeroPasseport) {
-        return ResponseEntity.of(catalog.findByNumeroPasseport(numeroPasseport).map(utilisateurMapper::toDto));
+
+        final Optional<Utilisateur> optionalUtilisateur = catalog.findByNumeroPasseport(numeroPasseport);
+        if (optionalUtilisateur.isEmpty() || !optionalUtilisateur.get().getNumeroPasseport().equals(currentUsername())) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.of(optionalUtilisateur.map(utilisateurMapper::toDto));
     }
 
     @PostMapping
@@ -42,7 +48,8 @@ public class UtilisateurResource extends DefaultResource {
     @RolesAllowed("ROLE_USER")
     @PutMapping("{numeroPasseport}")
     public ResponseEntity<?> modifierUtilisateur(@PathVariable final String numeroPasseport, @RequestBody final UpdateUtilisateurInput input) {
-        if (catalog.findByNumeroPasseport(numeroPasseport).isEmpty()) {
+        final Optional<Utilisateur> optionalUtilisateur = catalog.findByNumeroPasseport(numeroPasseport);
+        if (optionalUtilisateur.isEmpty() || !optionalUtilisateur.get().getNumeroPasseport().equals(currentUsername())) {
             return ResponseEntity.notFound().build();
         }
         input.setNumeroPasseport(numeroPasseport);
@@ -53,7 +60,8 @@ public class UtilisateurResource extends DefaultResource {
     @RolesAllowed("ROLE_USER")
     @DeleteMapping("{numeroPasseport}")
     public ResponseEntity<?> supprimerUtilisateur(@PathVariable final String numeroPasseport) {
-        if (catalog.findByNumeroPasseport(numeroPasseport).isEmpty()) {
+        final Optional<Utilisateur> optionalUtilisateur = catalog.findByNumeroPasseport(numeroPasseport);
+        if (optionalUtilisateur.isEmpty() || !optionalUtilisateur.get().getNumeroPasseport().equals(currentUsername())) {
             return ResponseEntity.notFound().build();
         }
         deleteUtilisateur.accept(new DeleteUtilisateurInput().setNumeroPasseport(numeroPasseport));
