@@ -28,7 +28,7 @@ public class CarteResource extends DefaultResource {
 
     @GetMapping("{numeroCarte}")
     public ResponseEntity<?> getCarte(@PathVariable final String numeroCarte) {
-        return ResponseEntity.of(catalog.findByNumeroCarte(numeroCarte).map(carteMapper::toDto));
+        return ResponseEntity.of(catalog.findByNumeroCarteAndUsername(numeroCarte, currentUsername()).map(carteMapper::toDto));
     }
 
     @PostMapping
@@ -41,7 +41,7 @@ public class CarteResource extends DefaultResource {
 
     @PutMapping("{numeroCarte}")
     public ResponseEntity<?> modifierCarte(@PathVariable final String numeroCarte, @RequestBody final UpdateCarteInput input) {
-        if (catalog.findByNumeroCarte(numeroCarte).isEmpty()) {
+        if (catalog.findByNumeroCarteAndUsername(numeroCarte, currentUsername()).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         input.setNumeroCarte(numeroCarte);
@@ -51,7 +51,7 @@ public class CarteResource extends DefaultResource {
 
     @DeleteMapping("{numeroCarte}")
     public ResponseEntity<?> supprimerCarte(@PathVariable final String numeroCarte) {
-        if (catalog.findByNumeroCarte(numeroCarte).isEmpty()) {
+        if (catalog.findByNumeroCarteAndUsername(numeroCarte, currentUsername()).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         deleteCarte.accept(new DeleteCarteInput().setNumeroCarte(numeroCarte));

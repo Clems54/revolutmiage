@@ -2,6 +2,8 @@ package fr.univlorraine.miage.revolutmiage.utils.infra.rest;
 
 import fr.univlorraine.miage.revolutmiage.utils.domain.cmd.InputValidationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -36,5 +38,10 @@ public abstract class DefaultResource {
         return new HashMap<>() {{
             put("problems", ex.getProblems());
         }};
+    }
+
+    public static String currentUsername() {
+        final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user.getUsername();
     }
 }

@@ -30,4 +30,9 @@ public class CarteHibernateAdapter implements CarteCatalog {
     public void deleteById(final String numeroCarte) {
         repository.deleteByNumeroCarte(numeroCarte);
     }
+
+    @Override
+    public Optional<Carte> findByNumeroCarteAndUsername(final String numeroCarte, final String currentUsername) {
+        return repository.findByNumeroCarteAndUsername(numeroCarte, currentUsername);
+    }
 }

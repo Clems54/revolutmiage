@@ -10,4 +10,6 @@ public interface CarteCatalog {
     Optional<Carte> findByNumeroCarte(String numeroCarte);
 
     void deleteById(String numeroCarte);
+
+    Optional<Carte> findByNumeroCarteAndUsername(String numeroCarte, String currentUsername);
 }
