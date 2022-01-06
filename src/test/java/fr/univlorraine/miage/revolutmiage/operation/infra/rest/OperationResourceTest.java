@@ -29,6 +29,7 @@ class OperationResourceTest {
     private static final double VALID_MONTANT = 250.0;
     public static final int VALID_SOLDE_CREDITEUR = 1000;
     public static final int VALID_SOLDE_DEBITEUR = 2000;
+    public static final double VALID_TAUX = 1.0;
 
     @Autowired
     OperationResource subject;
@@ -46,7 +47,8 @@ class OperationResourceTest {
                 .setCategorie(VALID_CATEGORIE)
                 .setPays(VALID_PAYS)
                 .setIbanCompteCrediteur(VALID_IBAN_CREDITEUR)
-                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR);
+                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR)
+                .setTaux(VALID_TAUX);
         operationCatalog.save(toSave);
 
         final Compte compteCrediteur = new Compte()
@@ -75,7 +77,8 @@ class OperationResourceTest {
                 .setCategorie(VALID_CATEGORIE)
                 .setPays(VALID_PAYS)
                 .setIbanCompteCrediteur(VALID_IBAN_CREDITEUR)
-                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR);
+                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR)
+                .setTaux(VALID_TAUX);
 
         // WHEN
         final ResponseEntity<?> responseEntity = subject.creerOperation(input);
@@ -85,7 +88,7 @@ class OperationResourceTest {
 
         // THEN
         Assertions.assertEquals(UUID.fromString(location[location.length - 1]), operation.getIdOperation());
-        Assertions.assertEquals(VALID_SOLDE_CREDITEUR + VALID_MONTANT, compteCrediteur.getSolde());
+        Assertions.assertEquals(VALID_SOLDE_CREDITEUR + (VALID_MONTANT * VALID_TAUX), compteCrediteur.getSolde());
     }
 
     @Test
@@ -97,7 +100,8 @@ class OperationResourceTest {
                 .setCategorie(VALID_CATEGORIE)
                 .setPays(VALID_PAYS)
                 .setIbanCompteCrediteur(VALID_IBAN_CREDITEUR)
-                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR);
+                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR)
+                .setTaux(VALID_TAUX);
 
         // WHEN
         final ResponseEntity<?> responseEntity = subject.creerOperation(input);

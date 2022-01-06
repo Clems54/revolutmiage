@@ -42,7 +42,7 @@ public class UpdateOperationImpl implements UpdateOperation {
     private void mettreAJourSoldesComptes(final UpdateOperationInput input) {
         final Compte compteCrediteur = compteCatalog.getByIban(input.getIbanCompteCrediteur());
         final Compte compteDebiteur = compteCatalog.getByIban(input.getIbanCompteDebiteur());
-        compteCrediteur.setSolde(compteCrediteur.getSolde() + input.getMontant());
+        compteCrediteur.setSolde(compteCrediteur.getSolde() + (input.getMontant() * input.getTaux()));
         compteDebiteur.setSolde(compteDebiteur.getSolde() - input.getMontant());
         compteCatalog.save(compteCrediteur);
         compteCatalog.save(compteDebiteur);
