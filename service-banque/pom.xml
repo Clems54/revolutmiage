@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>fr.univlorraine.miage</groupId>
-	<artifactId>revolutmiage</artifactId>
+	<artifactId>service-banque</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>revolutmiage</name>
+	<name>service-banque</name>
 	<description>Projet M2 SID</description>
 	<properties>
 		<java.version>11</java.version>
