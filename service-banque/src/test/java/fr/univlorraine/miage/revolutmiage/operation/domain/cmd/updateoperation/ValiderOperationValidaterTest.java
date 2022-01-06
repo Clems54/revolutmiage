@@ -26,7 +26,7 @@ import java.util.UUID;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class UpdateOperationValidaterTest {
+class ValiderOperationValidaterTest {
     public static final String VALID_LIBELLE = "Paiement nouvel an";
     public static final UUID VALID_ID_OPERATION = UUID.randomUUID();
     public static final LocalDateTime VALID_DATETIME = LocalDateTime.now();

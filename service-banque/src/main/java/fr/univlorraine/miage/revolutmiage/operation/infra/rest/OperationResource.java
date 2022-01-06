@@ -5,6 +5,8 @@ import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation.UpdateOperation;
 import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation.UpdateOperationInput;
+import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.valideroperation.ValiderOperation;
+import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.valideroperation.ValiderOperationInput;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
 import fr.univlorraine.miage.revolutmiage.operation.infra.dto.OperationDTO;
 import fr.univlorraine.miage.revolutmiage.operation.infra.mapper.OperationMapper;
@@ -28,14 +30,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/operations")
-@RolesAllowed("ROLE_USER")
 public class OperationResource extends DefaultResource {
     private final OperationCatalog catalog;
     private final OperationMapper operationMapper;
     private final UpdateOperation updateOperation;
+    private final ValiderOperation validerOperation;
     private final CompteCatalog compteCatalog;
 
     @GetMapping("{id}")
+    @RolesAllowed("ROLE_USER")
     public EntityModel<OperationDTO> getOperationById(@PathVariable final UUID id) {
         final Optional<Operation> operationOptional = catalog.findById(id);
 
@@ -52,6 +55,7 @@ public class OperationResource extends DefaultResource {
     }
 
     @GetMapping("comptes/{iban}")
+    @RolesAllowed("ROLE_USER")
     public ResponseEntity<?> getAllCompteOperations(@PathVariable final String iban) {
         final Optional<Compte> optionalCompte = compteCatalog.findByIban(iban);
         if (optionalCompte.isEmpty() || !optionalCompte.get().getUtilisateur().getNumeroPasseport().equals(currentUsername())) {
@@ -60,7 +64,14 @@ public class OperationResource extends DefaultResource {
         return ResponseEntity.ok(catalog.findAllByIdCompte(iban).stream().map(operationMapper::toDto));
     }
 
+    @PostMapping("externe")
+    public ResponseEntity<?> creerOperationExterne(@RequestBody final ValiderOperationInput input) {
+        validerOperation.accept(input);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping
+    @RolesAllowed("ROLE_USER")
     public ResponseEntity<?> creerOperation(@RequestBody final UpdateOperationInput input) {
         input.setDateOperation(LocalDateTime.now()).setIdOperation(UUID.randomUUID());
         updateOperation.accept(input.setCreation(true));

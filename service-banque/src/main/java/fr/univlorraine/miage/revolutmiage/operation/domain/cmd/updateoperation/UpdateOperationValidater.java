@@ -48,12 +48,12 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
         checkCompteExist(problems, optionalCompteCrediteur, "comptecrediteur");
         checkCompteExist(problems, optionalCompteDebiteur, "comptedebiteur");
 
-        checkCarte(input, problems, optionalCompteDebiteur, optionalOperation);
+        checkCarte(input, problems, optionalCompteDebiteur);
 
         return problems;
     }
 
-    private void checkCarte(final UpdateOperationInput input, final Map<String, String> problems, final Optional<Compte> optionalCompteDebiteur, final Optional<Operation> optionalOperation) {
+    private void checkCarte(final UpdateOperationInput input, final Map<String, String> problems, final Optional<Compte> optionalCompteDebiteur) {
         if (input.getCarte() != null && !input.getCarte().isEmpty()) {
             final Optional<Carte> optionalCarte = carteCatalog.findByNumeroCarte(input.getCarte());
             if (optionalCarte.isEmpty()) {
@@ -70,11 +70,10 @@ public class UpdateOperationValidater extends DefaultValidater<UpdateOperationIn
                         problems.put(key("carte", "notfound"), "La carte n'existe pas");
                     }
 
-                    final Operation operation = optionalOperation.get();
-                    if (operation.isSansContact() && !carte.isSansContact()) {
+                    if (input.isSansContact() && !carte.isSansContact()) {
                         problems.put(key("carte", "sanscontact"), "La carte ne permet pas le sans contact");
                     }
-                    if (operation.getMontant() > carte.getPlafond()) {
+                    if (input.getMontant() > carte.getPlafond()) {
                         problems.put(key("carte", "plafond"), "Le montant de l'opération dépasse le plafond de la carte");
                     }
                 }
