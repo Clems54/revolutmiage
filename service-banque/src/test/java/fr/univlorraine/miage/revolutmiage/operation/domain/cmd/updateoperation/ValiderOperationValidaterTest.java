@@ -44,6 +44,7 @@ class ValiderOperationValidaterTest {
     public static final String INVALID_IBAN = "FR3";
     public static final String INVALID_IBAN2 = "FR4";
     public static final String INVALID_CARTE = "666";
+    public static final int VALID_PLAFOND = 10000;
 
     @Autowired
     private Validator validator;
@@ -77,7 +78,7 @@ class ValiderOperationValidaterTest {
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(VALID_CARTE);
         final ArrayList<Carte> cartes = new ArrayList<>() {{
-            add(new Carte().setNumeroCarte(VALID_CARTE));
+            add(new Carte().setNumeroCarte(VALID_CARTE).setPlafond(VALID_PLAFOND));
         }};
 
         // WHEN
@@ -85,7 +86,7 @@ class ValiderOperationValidaterTest {
                 Optional.of(new Compte().setCartes(cartes).setSolde(VALID_MONTANT + 50)));
         Mockito.when(operationCatalog.findById(Mockito.any())).thenReturn(Optional.of(new Operation()));
         Mockito.when(carteCatalog.findByNumeroCarte(Mockito.any())).thenReturn(
-                Optional.of(new Carte().setNumeroCarte(VALID_CARTE)));
+                Optional.of(new Carte().setNumeroCarte(VALID_CARTE).setPlafond(VALID_PLAFOND)));
         subject.validate(validOperation);
     }
 
