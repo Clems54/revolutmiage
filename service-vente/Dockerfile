@@ -4,6 +4,6 @@ COPY . .
 RUN mvn -e -B -DskipTests clean package
 
 FROM openjdk:11
-COPY --from=BUILDER /app/target/revolutventemiage-0.0.1-SNAPSHOT.jar .
+COPY --from=BUILDER /app/target/service-vente-0.0.1-SNAPSHOT.jar .
 EXPOSE 8080
-CMD ["java","-jar","revolutventemiage-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","service-vente-0.0.1-SNAPSHOT.jar"]
