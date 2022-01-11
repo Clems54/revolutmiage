@@ -26,7 +26,7 @@ public class OperationResource extends DefaultResource {
 
     private final Validator validator;
 
-    @Value("${app.url.service-banque}")
+    @Value("${app.url.servicebanque}")
     private String banqueServiceOperationUrl;
     @Value("${app.properties.categorie}")
     private String categorie;

@@ -5,5 +5,5 @@ RUN mvn -e -B -DskipTests clean package
 
 FROM openjdk:11
 COPY --from=BUILDER /app/target/service-banque-0.0.1-SNAPSHOT.jar .
-EXPOSE 80
+EXPOSE 8000
 CMD ["java","-jar","service-banque-0.0.1-SNAPSHOT.jar"]

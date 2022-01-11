@@ -1,0 +1,18 @@
+version: "1.0"
+services:
+  service-banque:
+    build: ./service-banque
+    ports:
+      - "8000:8000"
+
+  service-vente:
+    build: ./service-vente
+    environment:
+      - APP_URL_SERVICEBANQUE=http://service-banque:8000/api/operations/externe
+    ports:
+      - "8080:8080"
+    links:
+      - service-banque
+    depends_on:
+      - service-banque
+
