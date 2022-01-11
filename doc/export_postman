@@ -497,7 +497,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"libelle\": \"Soirée nouvel an\",\r\n  \"montant\": 150.50,\r\n  \"taux\": 0,\r\n  \"ibanCompteCrediteur\": \"FR5014508000506664542849L42\",\r\n  \"ibanCompteDebiteur\": \"FR5014508000506664542849L42\",\r\n  \"categorie\": \"VIREMENT\",\r\n  \"pays\": \"France\"\r\n}",
+					"raw": "{\r\n  \"libelle\": \"Soirée nouvel an\",\r\n  \"montant\": 150.50,\r\n  \"ibanCompteCrediteur\": \"FR5014508000506664542849L42\",\r\n  \"ibanCompteDebiteur\": \"FR5014508000506664542849L42\",\r\n  \"categorie\": \"VIREMENT\",\r\n  \"pays\": \"France\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
