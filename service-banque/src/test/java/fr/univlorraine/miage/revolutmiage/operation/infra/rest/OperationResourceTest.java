@@ -7,6 +7,8 @@ import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation.U
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
 import fr.univlorraine.miage.revolutmiage.taux.domain.cmd.calcultaux.CalculTaux;
 import fr.univlorraine.miage.revolutmiage.taux.domain.cmd.calcultaux.CalculTauxInput;
+import fr.univlorraine.miage.revolutmiage.utilisateur.domain.catalog.UtilisateurCatalog;
+import fr.univlorraine.miage.revolutmiage.utilisateur.domain.entity.Utilisateur;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,10 +40,17 @@ class OperationResourceTest {
     OperationCatalog operationCatalog;
     @Autowired
     CompteCatalog compteCatalog;
+    @Autowired
+    UtilisateurCatalog utilisateurCatalog;
+    @Autowired
     CalculTaux calculTaux;
 
     @BeforeEach
     void beforeEach() {
+        final Utilisateur user1 = utilisateurCatalog.save(new Utilisateur().setPays("FRANCE").setNumeroPasseport("34RR09857"));
+        final Utilisateur user2 = utilisateurCatalog.save(new Utilisateur().setPays("FRANCE").setNumeroPasseport("34UU09857"));
+
+
         final Operation toSave = new Operation()
                 .setMontant(VALID_MONTANT)
                 .setDateOperation(LocalDateTime.now())
@@ -54,10 +63,12 @@ class OperationResourceTest {
 
         final Compte compteCrediteur = new Compte()
                 .setIban(VALID_IBAN_CREDITEUR)
-                .setSolde(VALID_SOLDE_CREDITEUR);
+                .setSolde(VALID_SOLDE_CREDITEUR)
+                .setUtilisateur(user1);
         final Compte compteDebiteur = new Compte()
                 .setIban(VALID_IBAN_DEBITEUR)
-                .setSolde(VALID_SOLDE_DEBITEUR);
+                .setSolde(VALID_SOLDE_DEBITEUR)
+                .setUtilisateur(user2);
         compteCatalog.save(compteCrediteur);
         compteCatalog.save(compteDebiteur);
     }
