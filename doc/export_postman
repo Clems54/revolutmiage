@@ -35,10 +35,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/authenticate",
+					"raw": "{{baseUrl}}:8000/authenticate",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"authenticate"
 					]
@@ -64,10 +65,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/api/utilisateurs",
+					"raw": "{{baseUrl}}:8000/api/utilisateurs",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"utilisateurs"
@@ -82,10 +84,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/utilisateurs/66RT25367",
+					"raw": "{{baseUrl}}:8000/api/utilisateurs/66RT25367",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"utilisateurs",
@@ -110,10 +113,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/api/utilisateurs/66RT25367",
+					"raw": "{{baseUrl}}:8000/api/utilisateurs/66RT25367",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"utilisateurs",
@@ -129,10 +133,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/utilisateurs/66RT25367",
+					"raw": "{{baseUrl}}:8000/api/utilisateurs/66RT25367",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"utilisateurs",
@@ -157,10 +162,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes",
+					"raw": "{{baseUrl}}:8000/api/comptes",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes"
@@ -175,10 +181,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes/FR5014508000506664542849L42",
+					"raw": "{{baseUrl}}:8000/api/comptes/FR5014508000506664542849L42",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes",
@@ -194,10 +201,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes/FR5014508000506664542849L42/solde",
+					"raw": "{{baseUrl}}:8000/api/comptes/FR5014508000506664542849L42/solde",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes",
@@ -214,10 +222,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes/FR5014508000506664542849L42/cartes",
+					"raw": "{{baseUrl}}:8000/api/comptes/FR5014508000506664542849L42/cartes",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes",
@@ -234,10 +243,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes/FR5014508000506664542849L42/operations?pays=france&categorie=virement",
+					"raw": "{{baseUrl}}:8000/api/comptes/FR5014508000506664542849L42/operations?pays=france&categorie=virement",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes",
@@ -264,10 +274,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes/FR5014508000506664542849L42/cartes/3649143529604623",
+					"raw": "{{baseUrl}}:8000/api/comptes/FR5014508000506664542849L42/cartes/3649143529604623",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes",
@@ -294,10 +305,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes/FR5014508000506664542849L42/cartes",
+					"raw": "{{baseUrl}}:8000/api/comptes/FR5014508000506664542849L42/cartes",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes",
@@ -323,10 +335,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes/FR5014508000506664542849L42/cartes/3649143529604623",
+					"raw": "{{baseUrl}}:8000/api/comptes/FR5014508000506664542849L42/cartes/3649143529604623",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes",
@@ -344,10 +357,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes/FR5014508000506664542849L42/cartes/3649143529604623",
+					"raw": "{{baseUrl}}:8000/api/comptes/FR5014508000506664542849L42/cartes/3649143529604623",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes",
@@ -365,10 +379,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/comptes/FR5014508000506664542849L42",
+					"raw": "{{baseUrl}}:8000/api/comptes/FR5014508000506664542849L42",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"comptes",
@@ -393,10 +408,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/api/cartes",
+					"raw": "{{baseUrl}}:8000/api/cartes",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"cartes"
@@ -411,10 +427,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/cartes/3649143529604623",
+					"raw": "{{baseUrl}}:8000/api/cartes/3649143529604623",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"cartes",
@@ -439,10 +456,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/api/cartes/3649143529604623",
+					"raw": "{{baseUrl}}:8000/api/cartes/3649143529604623",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"cartes",
@@ -458,10 +476,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/cartes/3649143529604623",
+					"raw": "{{baseUrl}}:8000/api/cartes/3649143529604623",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"cartes",
@@ -486,10 +505,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/api/operations",
+					"raw": "{{baseUrl}}:8000/api/operations",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"operations"
@@ -504,10 +524,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/operations/2b092c61-227d-4aec-b2c2-956c5ac9b36b",
+					"raw": "{{baseUrl}}:8000/api/operations/2b092c61-227d-4aec-b2c2-956c5ac9b36b",
 					"host": [
 						"{{baseUrl}}"
 					],
+					"port": "8000",
 					"path": [
 						"api",
 						"operations",
@@ -535,9 +556,9 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/payer",
+					"raw": "{{baseUrl}}:8080/api/payer",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
 					"port": "8080",
 					"path": [
