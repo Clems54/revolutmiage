@@ -5,6 +5,8 @@ import fr.univlorraine.miage.revolutmiage.compte.domain.catalog.CompteCatalog;
 import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
+import fr.univlorraine.miage.revolutmiage.taux.domain.cmd.calcultaux.CalculTaux;
+import fr.univlorraine.miage.revolutmiage.taux.domain.cmd.calcultaux.CalculTauxInput;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class UpdateOperationImpl implements UpdateOperation {
     private final OperationCatalog catalog;
     private final CarteCatalog carteCatalog;
     private final CompteCatalog compteCatalog;
+    private final CalculTaux calculTaux;
 
     @Override
     public void accept(final UpdateOperationInput input) {
@@ -27,7 +30,6 @@ public class UpdateOperationImpl implements UpdateOperation {
                 .setLibelle(input.getLibelle())
                 .setMontant(input.getMontant())
                 .setPays(input.getPays())
-                .setTaux(input.getTaux())
                 .setIbanCompteCrediteur(input.getIbanCompteCrediteur())
                 .setIbanCompteDebiteur(input.getIbanCompteDebiteur());
         if (input.getCarte() != null && !input.getCarte().isEmpty()) {
@@ -42,7 +44,14 @@ public class UpdateOperationImpl implements UpdateOperation {
     private void mettreAJourSoldesComptes(final UpdateOperationInput input) {
         final Compte compteCrediteur = compteCatalog.getByIban(input.getIbanCompteCrediteur());
         final Compte compteDebiteur = compteCatalog.getByIban(input.getIbanCompteDebiteur());
-        compteCrediteur.setSolde(compteCrediteur.getSolde() + (input.getMontant() * input.getTaux()));
+
+        final double taux = calculTaux.apply(new CalculTauxInput()
+                .setSource(compteDebiteur.getUtilisateur().getPays().toUpperCase())
+                .setDestination(compteCrediteur.getUtilisateur().getPays().toUpperCase())
+                .setQuantite(input.getMontant())
+        );
+
+        compteCrediteur.setSolde(compteCrediteur.getSolde() + (input.getMontant() * taux));
         compteDebiteur.setSolde(compteDebiteur.getSolde() - input.getMontant());
         compteCatalog.save(compteCrediteur);
         compteCatalog.save(compteDebiteur);

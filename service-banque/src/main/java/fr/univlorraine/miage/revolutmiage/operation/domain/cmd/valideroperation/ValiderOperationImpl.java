@@ -23,7 +23,6 @@ public class ValiderOperationImpl implements ValiderOperation {
         final UpdateOperationInput toSave = new UpdateOperationInput();
         toSave.setCreation(true).setIdOperation(UUID.randomUUID())
                 .setDateOperation(LocalDateTime.now())
-                .setTaux(1) // Service de conversion à venir
                 .setCarte(input.getNumeroCarte())
                 .setPays(input.getPays())
                 .setCategorie(input.getCategorie())

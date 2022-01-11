@@ -33,7 +33,6 @@ class ValiderOperationValidaterTest {
     public static final String VALID_CATEGORIE = "Personne";
     public static final double VALID_MONTANT = 150.10;
     public static final String VALID_PAYS = "France";
-    public static final int VALID_TAUX = 0;
     public static final String VALID_IBAN = "FR4217569000702756912794W52";
     public static final String VALID_IBAN2 = "FR4217569000702756912794W51";
     public static final String VALID_CARTE = "4837210495832750";
@@ -73,7 +72,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(VALID_CARTE);
@@ -101,7 +99,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2);
 
@@ -120,7 +117,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(INVALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2);
 
@@ -139,7 +135,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(INVALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2);
 
@@ -158,7 +153,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(INVALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2);
 
@@ -177,7 +171,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(INVALID_IBAN2);
 
@@ -196,7 +189,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(INVALID_CARTE);
@@ -216,7 +208,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(VALID_CARTE);
@@ -244,7 +235,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(VALID_CARTE);
@@ -272,7 +262,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(VALID_CARTE);
@@ -300,7 +289,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(VALID_CARTE);
@@ -339,7 +327,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2);
 
@@ -362,7 +349,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2);
 
@@ -385,7 +371,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(VALID_CARTE);
@@ -410,7 +395,6 @@ class ValiderOperationValidaterTest {
                 .setLibelle(VALID_LIBELLE)
                 .setMontant(VALID_MONTANT)
                 .setPays(VALID_PAYS)
-                .setTaux(VALID_TAUX)
                 .setIbanCompteCrediteur(VALID_IBAN)
                 .setIbanCompteDebiteur(VALID_IBAN2)
                 .setCarte(VALID_CARTE);

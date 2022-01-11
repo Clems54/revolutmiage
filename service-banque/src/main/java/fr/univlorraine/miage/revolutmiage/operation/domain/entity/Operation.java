@@ -23,7 +23,6 @@ public class Operation {
     private LocalDateTime dateOperation;
     private String libelle;
     private double montant;
-    private double taux;
     private String ibanCompteCrediteur;
     private String ibanCompteDebiteur;
     private String categorie;

@@ -21,3 +21,7 @@ INSERT INTO Utilisateur_Comptes (utilisateur_numero_passeport, comptes_iban)
 VALUES ('76TE87654', 'FR0217569000506965351885H25'),
        ('22OP49977', 'FR0317569000507363899875J51'),
        ('00CV93645', 'FR6330003000403931818847A71');
+
+INSERT INTO Taux (source, destination, taux)
+VALUES ('FRANCE', 'USA', 1.14),
+       ('USA', 'FRANCE', 0.88)

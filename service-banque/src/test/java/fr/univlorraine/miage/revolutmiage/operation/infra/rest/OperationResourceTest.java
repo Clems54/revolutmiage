@@ -5,6 +5,8 @@ import fr.univlorraine.miage.revolutmiage.compte.domain.entity.Compte;
 import fr.univlorraine.miage.revolutmiage.operation.domain.catalog.OperationCatalog;
 import fr.univlorraine.miage.revolutmiage.operation.domain.cmd.updateoperation.UpdateOperationInput;
 import fr.univlorraine.miage.revolutmiage.operation.domain.entity.Operation;
+import fr.univlorraine.miage.revolutmiage.taux.domain.cmd.calcultaux.CalculTaux;
+import fr.univlorraine.miage.revolutmiage.taux.domain.cmd.calcultaux.CalculTauxInput;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +31,6 @@ class OperationResourceTest {
     private static final double VALID_MONTANT = 250.0;
     public static final int VALID_SOLDE_CREDITEUR = 1000;
     public static final int VALID_SOLDE_DEBITEUR = 2000;
-    public static final double VALID_TAUX = 1.0;
 
     @Autowired
     OperationResource subject;
@@ -37,6 +38,7 @@ class OperationResourceTest {
     OperationCatalog operationCatalog;
     @Autowired
     CompteCatalog compteCatalog;
+    CalculTaux calculTaux;
 
     @BeforeEach
     void beforeEach() {
@@ -47,8 +49,7 @@ class OperationResourceTest {
                 .setCategorie(VALID_CATEGORIE)
                 .setPays(VALID_PAYS)
                 .setIbanCompteCrediteur(VALID_IBAN_CREDITEUR)
-                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR)
-                .setTaux(VALID_TAUX);
+                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR);
         operationCatalog.save(toSave);
 
         final Compte compteCrediteur = new Compte()
@@ -77,8 +78,7 @@ class OperationResourceTest {
                 .setCategorie(VALID_CATEGORIE)
                 .setPays(VALID_PAYS)
                 .setIbanCompteCrediteur(VALID_IBAN_CREDITEUR)
-                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR)
-                .setTaux(VALID_TAUX);
+                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR);
 
         // WHEN
         final ResponseEntity<?> responseEntity = subject.creerOperation(input);
@@ -86,9 +86,12 @@ class OperationResourceTest {
         final Operation operation = operationCatalog.findById(UUID.fromString(location[location.length - 1])).get();
         final Compte compteCrediteur = compteCatalog.getByIban(operation.getIbanCompteCrediteur());
 
+        final double taux = calculTaux.apply(new CalculTauxInput().setSource("FRANCE").setDestination("FRANCE").setQuantite(VALID_MONTANT));
+
+
         // THEN
         Assertions.assertEquals(UUID.fromString(location[location.length - 1]), operation.getIdOperation());
-        Assertions.assertEquals(VALID_SOLDE_CREDITEUR + (VALID_MONTANT * VALID_TAUX), compteCrediteur.getSolde());
+        Assertions.assertEquals(VALID_SOLDE_CREDITEUR + (VALID_MONTANT * taux), compteCrediteur.getSolde());
     }
 
     @Test
@@ -100,8 +103,7 @@ class OperationResourceTest {
                 .setCategorie(VALID_CATEGORIE)
                 .setPays(VALID_PAYS)
                 .setIbanCompteCrediteur(VALID_IBAN_CREDITEUR)
-                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR)
-                .setTaux(VALID_TAUX);
+                .setIbanCompteDebiteur(VALID_IBAN_DEBITEUR);
 
         // WHEN
         final ResponseEntity<?> responseEntity = subject.creerOperation(input);
