@@ -45,13 +45,13 @@ public class UpdateOperationImpl implements UpdateOperation {
         final Compte compteCrediteur = compteCatalog.getByIban(input.getIbanCompteCrediteur());
         final Compte compteDebiteur = compteCatalog.getByIban(input.getIbanCompteDebiteur());
 
-        final double taux = calculTaux.apply(new CalculTauxInput()
-                .setSource(compteDebiteur.getUtilisateur().getPays().toUpperCase())
-                .setDestination(compteCrediteur.getUtilisateur().getPays().toUpperCase())
+        final double montantFinal = calculTaux.apply(new CalculTauxInput()
+                .setSource(compteDebiteur.getPays().toUpperCase())
+                .setDestination(compteCrediteur.getPays().toUpperCase())
                 .setQuantite(input.getMontant())
         );
 
-        compteCrediteur.setSolde(compteCrediteur.getSolde() + (input.getMontant() * taux));
+        compteCrediteur.setSolde(compteCrediteur.getSolde() + montantFinal);
         compteDebiteur.setSolde(compteDebiteur.getSolde() - input.getMontant());
         compteCatalog.save(compteCrediteur);
         compteCatalog.save(compteDebiteur);
