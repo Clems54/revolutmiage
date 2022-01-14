@@ -6,7 +6,38 @@
 	},
 	"item": [
 		{
-			"name": "0-authenticate",
+			"name": "0-add_user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nom\": \"Dujardin\",\r\n  \"prenom\": \"Jean\",\r\n  \"dateDeNaissance\": \"1972-06-19\",\r\n  \"pays\": \"France\",\r\n  \"numeroPasseport\": \"66RT25367\",\r\n  \"numeroTelephone\": \"+33606060606\",\r\n  \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8000/api/utilisateurs",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"utilisateurs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1-authenticate",
 			"event": [
 				{
 					"listen": "test",
@@ -42,37 +73,6 @@
 					"port": "8000",
 					"path": [
 						"authenticate"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "1-add_user",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"nom\": \"Dujardin\",\r\n  \"prenom\": \"Jean\",\r\n  \"dateDeNaissance\": \"1972-06-19\",\r\n  \"pays\": \"France\",\r\n  \"numeroPasseport\": \"66RT25367\",\r\n  \"numeroTelephone\": \"+33606060606\",\r\n  \"password\": \"password\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}:8000/api/utilisateurs",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"utilisateurs"
 					]
 				}
 			},
@@ -154,7 +154,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"iban\": \"FR5014508000506664542849L42\",\r\n  \"numeroPasseportUtilisateur\": \"66RT25367\",\r\n  \"solde\": 2500\r\n}",
+					"raw": "{\r\n  \"iban\": \"FR5014508000506664542849L42\",\r\n  \"numeroPasseportUtilisateur\": \"66RT25367\",\r\n  \"solde\": 2500,\r\n  \"pays\": \"FRANCE\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -448,7 +448,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"numeroCarte\": \"3649143529604623\",\r\n  \"code\": \"5400\",\r\n  \"cryptogramme\": \"000\",\r\n  \"bloquee\": true,\r\n  \"localisation\": true,\r\n  \"plafond\": 15000,\r\n  \"sansContact\": true,\r\n  \"virtuelle\": true,\r\n  \"compteIban\": \"FR5014508000506664542849L42\"\r\n}",
+					"raw": "{\r\n  \"numeroCarte\": \"3649143529604623\",\r\n  \"code\": \"5400\",\r\n  \"cryptogramme\": \"000\",\r\n  \"bloquee\": false,\r\n  \"localisation\": true,\r\n  \"plafond\": 15000,\r\n  \"sansContact\": true,\r\n  \"virtuelle\": true,\r\n  \"compteIban\": \"FR5014508000506664542849L42\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -524,7 +524,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}:8000/api/operations/2b092c61-227d-4aec-b2c2-956c5ac9b36b",
+					"raw": "{{baseUrl}}:8000/api/operations/09337b04-5f6b-40f8-a6e8-b2645c030f3d",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -532,7 +532,7 @@
 					"path": [
 						"api",
 						"operations",
-						"2b092c61-227d-4aec-b2c2-956c5ac9b36b"
+						"09337b04-5f6b-40f8-a6e8-b2645c030f3d"
 					]
 				}
 			},
