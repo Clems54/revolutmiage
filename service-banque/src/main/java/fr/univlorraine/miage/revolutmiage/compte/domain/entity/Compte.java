@@ -26,4 +26,5 @@ public class Compte {
     private List<Carte> cartes;
     @ManyToOne
     private Utilisateur utilisateur;
+    private String pays;
 }

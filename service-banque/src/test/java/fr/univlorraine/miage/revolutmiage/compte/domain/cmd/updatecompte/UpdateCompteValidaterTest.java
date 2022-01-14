@@ -26,6 +26,8 @@ class UpdateCompteValidaterTest {
     public static final String INVALID_COMPTE_IBAN = "7569000702756912794W52";
     private static final String VALID_PASSEPORT = "54CM81453";
     private static final String INVALID_PASSEPORT = "54DS0967";
+    private static final String VALID_PAYS  = "FRANCE";
+    private static final String INVALID_PAYS  = "FRANCEFRANCEFRANCEFRANCEFRANCEFRANCEFRANCEFRANCEFRANCEFRANCEFRANCEFRANCE";
 
     @Autowired
     private Validator validator;
@@ -48,7 +50,8 @@ class UpdateCompteValidaterTest {
         validCompte
                 .setCreation(false)
                 .setIban(VALID_COMPTE_IBAN)
-                .setNumeroPasseportUtilisateur(VALID_PASSEPORT);
+                .setNumeroPasseportUtilisateur(VALID_PASSEPORT)
+                .setPays(VALID_PAYS);
 
         // WHEN
         Mockito.when(compteCatalog.findByIban(validCompte.getIban())).thenReturn(Optional.of(new Compte()));
@@ -63,7 +66,8 @@ class UpdateCompteValidaterTest {
         validCompte
                 .setCreation(false)
                 .setIban(INVALID_COMPTE_IBAN)
-                .setNumeroPasseportUtilisateur(VALID_PASSEPORT);
+                .setNumeroPasseportUtilisateur(VALID_PASSEPORT)
+                .setPays(VALID_PAYS);
 
         // WHEN
         Assertions.assertThrows(ConstraintViolationException.class, () -> subject.validate(validCompte));
@@ -76,7 +80,22 @@ class UpdateCompteValidaterTest {
         validCompte
                 .setCreation(false)
                 .setIban(VALID_COMPTE_IBAN)
-                .setNumeroPasseportUtilisateur(INVALID_PASSEPORT);
+                .setNumeroPasseportUtilisateur(INVALID_PASSEPORT)
+                .setPays(VALID_PAYS);
+
+        // WHEN
+        Assertions.assertThrows(ConstraintViolationException.class, () -> subject.validate(validCompte));
+    }
+
+    @Test
+    void testMauvaisPays() {
+        // GIVEN
+        final UpdateCompteInput validCompte = new UpdateCompteInput();
+        validCompte
+                .setCreation(false)
+                .setIban(VALID_COMPTE_IBAN)
+                .setNumeroPasseportUtilisateur(VALID_PASSEPORT)
+                .setPays(INVALID_PAYS);
 
         // WHEN
         Assertions.assertThrows(ConstraintViolationException.class, () -> subject.validate(validCompte));
@@ -100,7 +119,8 @@ class UpdateCompteValidaterTest {
         validCompte
                 .setCreation(false)
                 .setIban(VALID_COMPTE_IBAN)
-                .setNumeroPasseportUtilisateur(VALID_PASSEPORT);
+                .setNumeroPasseportUtilisateur(VALID_PASSEPORT)
+                .setPays(VALID_PAYS);
 
         // WHEN
         Mockito.when(compteCatalog.findByIban(validCompte.getIban())).thenReturn(Optional.empty());
@@ -115,7 +135,8 @@ class UpdateCompteValidaterTest {
         validCompte
                 .setCreation(false)
                 .setIban(VALID_COMPTE_IBAN)
-                .setNumeroPasseportUtilisateur(VALID_PASSEPORT);
+                .setNumeroPasseportUtilisateur(VALID_PASSEPORT)
+                .setPays(VALID_PAYS);
 
         // WHEN
         Mockito.when(compteCatalog.findByIban(validCompte.getIban())).thenReturn(Optional.of(new Compte()));
@@ -130,7 +151,8 @@ class UpdateCompteValidaterTest {
         validCompte
                 .setCreation(true)
                 .setIban(VALID_COMPTE_IBAN)
-                .setNumeroPasseportUtilisateur(VALID_PASSEPORT);
+                .setNumeroPasseportUtilisateur(VALID_PASSEPORT)
+                .setPays(VALID_PAYS);
 
         // WHEN
         Mockito.when(compteCatalog.findByIban(validCompte.getIban())).thenReturn(Optional.of(new Compte()));

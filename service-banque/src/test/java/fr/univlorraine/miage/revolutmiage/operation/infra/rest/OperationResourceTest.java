@@ -64,11 +64,13 @@ class OperationResourceTest {
         final Compte compteCrediteur = new Compte()
                 .setIban(VALID_IBAN_CREDITEUR)
                 .setSolde(VALID_SOLDE_CREDITEUR)
-                .setUtilisateur(user1);
+                .setUtilisateur(user1)
+                .setPays(VALID_PAYS);
         final Compte compteDebiteur = new Compte()
                 .setIban(VALID_IBAN_DEBITEUR)
                 .setSolde(VALID_SOLDE_DEBITEUR)
-                .setUtilisateur(user2);
+                .setUtilisateur(user2)
+                .setPays(VALID_PAYS);
         compteCatalog.save(compteCrediteur);
         compteCatalog.save(compteDebiteur);
     }
@@ -97,12 +99,12 @@ class OperationResourceTest {
         final Operation operation = operationCatalog.findById(UUID.fromString(location[location.length - 1])).get();
         final Compte compteCrediteur = compteCatalog.getByIban(operation.getIbanCompteCrediteur());
 
-        final double taux = calculTaux.apply(new CalculTauxInput().setSource("FRANCE").setDestination("FRANCE").setQuantite(VALID_MONTANT));
+        final double montantFinal = calculTaux.apply(new CalculTauxInput().setSource("FRANCE").setDestination("FRANCE").setQuantite(VALID_MONTANT));
 
 
         // THEN
         Assertions.assertEquals(UUID.fromString(location[location.length - 1]), operation.getIdOperation());
-        Assertions.assertEquals(VALID_SOLDE_CREDITEUR + (VALID_MONTANT * taux), compteCrediteur.getSolde());
+        Assertions.assertEquals(VALID_SOLDE_CREDITEUR + montantFinal, compteCrediteur.getSolde());
     }
 
     @Test

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -22,4 +23,8 @@ public class CompteInput {
     private String numeroPasseportUtilisateur;
 
     private double solde;
+
+    @NotBlank
+    @Length(min = 1, max = 20)
+    private String pays;
 }

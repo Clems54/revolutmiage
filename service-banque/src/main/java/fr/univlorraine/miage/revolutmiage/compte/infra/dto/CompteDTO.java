@@ -18,4 +18,5 @@ public class CompteDTO {
     private double solde;
     private List<CarteDTO> cartes;
     private UtilisateurDTO utilisateur;
+    private String pays;
 }
