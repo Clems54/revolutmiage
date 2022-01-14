@@ -1,5 +1,5 @@
 # Projet Revolutmiage
-Auteurs: Clément Mercier
+Auteur: Clément Mercier
 
 ## Informations-Generales
 ***
@@ -20,6 +20,7 @@ Les technologies suivantes doivent être installées :
 
 * JAVA 11
 * MAVEN 3
+* Docker
 
 ## Installation
 ***
